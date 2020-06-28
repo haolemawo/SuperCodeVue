@@ -5,8 +5,7 @@ const systemmanagers = {
   component: Layout,
   redirect: '/system/Rolelist',
   name: 'systemrolemanager',
-  alwaysShow: true,
-  meta: { title: '系统管理', icon: 'example', affix: true, menuno: 'SYS_MANAGER' },
+  meta: { title: '系统管理', icon: 'example', affix: false, menuno: 'SYS_MANAGER' },
   children: [
     {
       path: 'DictionaryList',

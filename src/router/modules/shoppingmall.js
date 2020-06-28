@@ -6,8 +6,7 @@ const shoppingmall = {
   component: Layout,
   redirect: '/shopping/malllist',
   name: 'shopping',
-  alwaysShow: true,
-  meta: { title: '商城管理', icon: 'shopping', affix: true, menuno: 'SM_SHOPPINGMALLMANAGER' },
+  meta: { title: '商城管理', icon: 'shopping', affix: false, menuno: 'SM_SHOPPINGMALLMANAGER' },
   children: [
     {
       path: 'malllist',

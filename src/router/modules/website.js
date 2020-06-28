@@ -6,8 +6,7 @@ const website = {
   component: Layout,
   redirect: '/website/RotationSet',
   name: 'website',
-  alwaysShow: true,
-  meta: { title: '网站配置', icon: 'shopping', affix: true, menuno: 'WEB_WEBSITESET' },
+  meta: { title: '网站配置', icon: 'shopping', affix: false, menuno: 'WEB_WEBSITESET' },
   children: [
     {
       path: 'RotationSet',

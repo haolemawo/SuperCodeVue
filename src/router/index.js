@@ -161,8 +161,7 @@ export const asyncRoutes = [
     component: Layout,
     redirect: '/baseinfo/userlist',
     name: '基础信息',
-    alwaysShow: true,
-    meta: { title: '基础信息', icon: 'example', affix: true, menuno: 'BASE_INFOMANAGER' },
+    meta: { title: '基础信息', icon: 'example', affix: false, menuno: 'BASE_INFOMANAGER' },
     children: [
       {
         path: 'userlist',
