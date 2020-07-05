@@ -58,18 +58,28 @@ export const constantRoutes = [
     component: () => import('@/views/error-page/404'),
     hidden: true
   },
+  // {
+  //   path: '/dashboard',
+  //   component: Layout,
+  //   // redirect: '/dashboard',
+  //   children: [{
+  //     path: 'dashboard',
+  //     name: 'Dashboard',
+  //     component: () => import('@/views/dashboard/index'),
+  //     meta: { title: '主页', icon: 'dashboard', affix: true }
+  //   }]
+  // },
   {
     path: '/',
     component: Layout,
-    redirect: '/dashboard',
+    redirect: '/home',
     children: [{
-      path: 'dashboard',
-      name: 'Dashboard',
-      component: () => import('@/views/dashboard/index'),
-      meta: { title: '主页', icon: 'dashboard', affix: true }
+      path: 'home',
+      name: 'home',
+      component: () => import('@/views/home/index'),
+      meta: { title: '主页', icon: 'home', affix: true }
     }]
-  },
-
+  }
   // {
   //   path: '/form',
   //   component: Layout,
@@ -179,7 +189,7 @@ export const asyncRoutes = [
 ]
 
 const createRouter = () => new Router({
-  // mode: 'history', // require service support
+  mode: 'hash', // require service support
   scrollBehavior: () => ({ y: 0 }),
   routes: constantRoutes
 })

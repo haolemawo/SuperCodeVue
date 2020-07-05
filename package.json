@@ -1,5 +1,5 @@
 {
-  "name": "vue-admin-template",
+  "name": "supercode",
   "version": "4.2.1",
   "description": "打造一个通用的Vue后台管理系统",
   "author": "JiaYanChao<903169806@qq.com>",
@@ -18,6 +18,7 @@
     "@aspnet/signalr": "^1.1.4",
     "@tinymce/tinymce-vue": "^3.2.0",
     "axios": "0.18.1",
+    "echarts": "^4.8.0",
     "element-ui": "2.13.0",
     "jquery": "^3.5.0",
     "js-base64": "^2.5.2",
