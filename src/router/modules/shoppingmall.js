@@ -1,7 +1,7 @@
 import Layout from '@/layout'
 
 // 商城模块
-const shoppingmall = {
+export const shoppingmall = {
   path: '/shopping',
   component: Layout,
   redirect: '/shopping/malllist',
@@ -19,14 +19,28 @@ const shoppingmall = {
       name: '商品分类',
       component: () => import('@/views/shopping/malltype'),
       meta: { title: '商品分类', icon: 'table', menuno: 'SM_SHOPPINGPRODUCTTYPE' }
-    },
-    {
-      path: 'brandmanager',
-      name: '品牌管理',
-      component: () => import('@/views/shopping/brandmanager'),
-      meta: { title: '品牌管理', icon: 'table', menuno: 'SM_SHOPPINGBRANDMANAGER' }
     }
   ]
 }
-
-export default shoppingmall
+export const brandmanager = {
+  path: '/brandmanager',
+  component: Layout,
+  redirect: '/brandmanager/brandlist',
+  name: 'brandmanager',
+  meta: { title: '品牌管理', icon: 'shopping', affix: false, menuno: 'SM_SHOPPINGBRANDMANAGER' },
+  children: [
+    {
+      path: 'brandlist',
+      name: '品牌列表',
+      component: () => import('@/views/shopping/brandlist/index'),
+      meta: { title: '品牌列表', icon: 'table', menuno: 'SM_SHOPPINGBRANDLIST' }
+    },
+    {
+      path: 'brandtype',
+      name: '品牌分类',
+      component: () => import('@/views/shopping/brandsort/index'),
+      meta: { title: '品牌分类', icon: 'table', menuno: 'SM_SHOPPINGBRANDSORT' }
+    }
+  ]
+}
+// export default brandmanager
