@@ -9,7 +9,8 @@ const state = {
   ScreenSize: {
     width: document.documentElement.clientWidth,
     height: document.documentElement.clientHeight
-  }
+  },
+  size: Cookies.get('size') != null ? Cookies.get('size') : 'default'
 }
 
 const mutations = {

@@ -6,7 +6,6 @@
           <el-card>
             <el-input
               v-model="mallTypeFilterText"
-              size="mini"
               placeholder="输入关键字进行过滤"
             />
             <el-tree
@@ -37,7 +36,6 @@
             highlight-current-row
             border
             style="width: 100%"
-            size="mini"
             current-row-key="MALLID"
             @row-click="RowSelect"
           >
@@ -53,7 +51,7 @@
               width="180px"
             >
               <template slot-scope="scope">
-                <el-button type="text" size="mini" style="padding-top: 0px;padding-bottom: 0px;" @click="clickMallNameBtn(scope.row.MALLID)">{{ scope.row.MALLNAME }}</el-button>
+                <el-button type="text" style="padding-top: 0px;padding-bottom: 0px;" @click="clickMallNameBtn(scope.row.MALLID)">{{ scope.row.MALLNAME }}</el-button>
               </template>
             </el-table-column>
             <el-table-column

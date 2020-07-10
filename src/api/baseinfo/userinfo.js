@@ -15,6 +15,15 @@ const userinfo = {
       data: postData
     })
   },
+  // 获取用户对象信息
+  GetUserInfo(params) {
+    const postData = qs.stringify(params)
+    return request({
+      url: $base.web + '/userinfo/GetUserInfo',
+      method: 'post',
+      data: postData
+    })
+  },
   // 保存用户对象
   SaveUserInfo(params) {
     const postData = qs.stringify(params)

@@ -23,8 +23,8 @@
         :file-list="fileList"
         :auto-upload="false"
       >
-        <el-button size="mini" type="primary">选择文件</el-button>
-        <el-button size="mini" icon="el-icon-upload2" type="success" @click="submitUpload">导入</el-button>
+        <el-button type="primary">选择文件</el-button>
+        <el-button icon="el-icon-upload2" type="success" @click="submitUpload">导入</el-button>
         <div slot="tip" class="el-upload__tip">只能上传.xlsx文件，且不超过1MB</div>
       </el-upload>
     </el-dialog>

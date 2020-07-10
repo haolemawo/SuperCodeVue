@@ -16,7 +16,6 @@
       <el-form
         ref="entity"
         :model="entity"
-        size="small"
         :inline="false"
         :rules="rules"
         label-width="110px"

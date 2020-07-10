@@ -11,7 +11,6 @@
       highlight-current-row
       border
       style="width: 100%"
-      size="mini"
       :fit="false"
       current-row-key="ROTATIONID"
       @row-click="RowSelect"

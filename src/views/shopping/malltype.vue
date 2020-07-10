@@ -12,7 +12,6 @@
       lazy
       :load="loadTreeData"
       style="width: 100%"
-      size="mini"
       row-key="MALLTYPEID"
       :tree-props="{children: 'children', hasChildren: 'hasChildren'}"
       @row-click="RowSelect"

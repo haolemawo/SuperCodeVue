@@ -10,8 +10,8 @@
     >
       <el-form
         ref="entity"
+        v-loading="formLoading"
         :model="entity"
-        size="small"
         :inline="true"
         :rules="rules"
         label-width="110px"
@@ -26,7 +26,7 @@
         </el-col>
         <el-col :span="24">
           <el-form-item label="密码" prop="USERPASSWORD">
-            <el-input v-model="entity.USERPASSWORD" placeholder="用户密码" />
+            <el-input v-model="entity.USERPASSWORD" :disabled="formparams.type!=='Add'" placeholder="用户密码" show-password />
           </el-form-item>
           <el-form-item label="性别" prop="UserSex">
             <el-select v-model="entity.UserSex" placeholder="用户性别">
@@ -73,6 +73,7 @@ export default {
   },
   data() {
     return {
+      formLoading: false,
       saveLoading: false,
       entity: {
         USERID: 0,
@@ -101,9 +102,22 @@ export default {
     }
   },
   created() {
-    console.log(this.formparams)
+    if (this.formparams.type === 'Edit' || this.formparams.type === 'View') {
+      this.InitData()
+    }
   },
   methods: {
+    InitData() {
+      this.formLoading = true
+      userinfoService.GetUserInfo({ userid: this.formparams.key }).then(res => {
+        if (res.Issuccess) {
+          this.entity = res.Data
+        } else {
+          this.$message.error(res.DataMsg)
+        }
+        this.formLoading = false
+      })
+    },
     save(formEntity) {
       // 保存字典分类
       this.$refs[formEntity].validate((valid) => {
@@ -116,7 +130,7 @@ export default {
                 message: '操作成功!',
                 type: 'success'
               })
-              this.$parent.RefreshDetailList()
+              this.$emit('RefreshList')
             } else {
               this.$message.error(res.DataMsg)
             }

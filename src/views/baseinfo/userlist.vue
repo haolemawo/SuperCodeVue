@@ -11,7 +11,6 @@
       highlight-current-row
       border
       style="width: 100%"
-      size="mini"
       current-row-key="USERID"
       @row-click="RowSelect"
     >
@@ -89,7 +88,7 @@
     <!-- 导入用户表单 -->
     <UserImport-Form v-if="importformParams.isvisible" ref="roleEdit" :formparams="importformParams" />
     <!-- 新增、编辑表单 -->
-    <Userinfo-Form v-if="formparams.isvisible" ref="UserinfoForm" :formparams="formparams" />
+    <Userinfo-Form v-if="formparams.isvisible" ref="UserinfoForm" @RefreshList="RefreshList" :formparams="formparams" />
   </div>
 </template>
 
@@ -158,7 +157,7 @@ export default {
     },
     RowSelect(row) {
       // 选择当前行
-      this.currentRowId = row.ROLEID
+      this.currentRowId = row.USERID
     },
     // 搜索事件
     search() {
@@ -185,7 +184,7 @@ export default {
         }
       })
     },
-    Edit() {
+    EditUser() {
       if (!this.currentRowId) {
         this.$message({
           showClose: true,
@@ -203,7 +202,7 @@ export default {
         }
       })
     },
-    Delete() {
+    DeleteUser() {
       if (!this.currentRowId) {
         this.$message({
           showClose: true,
@@ -232,7 +231,7 @@ export default {
     },
     // 刷新列表
     RefreshList() {
-
+      this.InitData()
     }
   }
 }

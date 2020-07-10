@@ -11,7 +11,6 @@
         ref="form"
         v-loading="InitDataLoading"
         :model="entity"
-        size="small"
         :rules="formrules"
         label-width="80px"
       >

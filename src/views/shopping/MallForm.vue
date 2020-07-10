@@ -17,7 +17,6 @@
           <el-form
             ref="entity"
             :model="MallBaseDetail"
-            size="small"
             :inline="false"
             :rules="rules"
             :disabled="IsView"
