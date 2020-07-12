@@ -3,11 +3,10 @@
     <el-card class="dictionary-tree-card">
       <div slot="header" class="clearfix">
         <span>字典分类</span>
-        <el-button v-show="isAdmin" style="float: right; padding: 3px 0" size="mini" type="text" @click="AddDictionaryType">新增分类</el-button>
+        <el-button v-show="isAdmin" style="float: right; padding: 3px 0" type="text" @click="AddDictionaryType">新增分类</el-button>
       </div>
       <el-input
         v-model="filterText"
-        size="mini"
         placeholder="输入关键字进行过滤"
       />
       <el-tree
@@ -28,8 +27,8 @@
       <div slot="header" class="clearfix">
         <span>字典明细</span>
         <div style="float: right; ">
-          <el-button v-show="isAdmin" style="padding: 3px 0" size="mini" type="text" @click="AddDictionaryDetail">新增字典</el-button>
-          <el-button v-show="isAdmin" style="padding: 3px 0" size="mini" type="text" @click="EditDictionaryDetail">编辑字典</el-button>
+          <el-button v-show="isAdmin" style="padding: 3px 0" type="text" @click="AddDictionaryDetail">新增字典</el-button>
+          <el-button v-show="isAdmin" style="padding: 3px 0" type="text" @click="EditDictionaryDetail">编辑字典</el-button>
           <!-- <el-button v-show="isAdmin" style="padding: 3px 0" size="mini" type="text" @click="DeleteDictionaryDetail">删除字典</el-button> -->
         </div>
       </div>
@@ -38,7 +37,6 @@
         :data="DictionaryDetailData"
         border
         highlight-current-row
-        size="mini"
         style="width: 100%"
         current-row-key="DICTIONARYDETAILID"
         @row-click="RowSelect"

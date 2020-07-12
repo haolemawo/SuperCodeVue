@@ -9,13 +9,13 @@
           <el-card>
             <el-input
               v-model="filterText"
-              size="mini"
-              placeholder="输入角色关键字进行过滤"
+              placeholder="输入角色关键字过滤"
             />
             <el-tree
               ref="RoleTree"
               class="filter-tree"
               :props="defaultProps"
+              style="height:500px"
               node-key="id"
               default-expand-all
               highlight-current
@@ -34,16 +34,17 @@
               <SearchConditionToolbar />
               <MenuBottomToolbar menuclass="BASE_ROLEAUTHORIZE" @cllFun="cllFun" />
               <el-table
+                v-loading="RolePrivileageMenuDataLoading"
                 :data="RolePrivileageMenuData"
                 style="width: 100%;margin-bottom: 20px;"
-                row-key="id"
-                size="mini"
+                height="420px"
+                row-key="key"
                 highlight-current-row
                 border
-                :tree-props="{children: 'children', hasChildren: 'hasChildren'}"
+                :tree-props="{children: 'children'}"
               >
                 <el-table-column
-                  prop="MENUNAME"
+                  prop="Extend.MENUNAME"
                   label="菜单名称"
                   width="120"
                 />
@@ -53,16 +54,16 @@
                   width="80"
                 >
                   <template slot-scope="scope">
-                    <span>{{ scope.row.IsAccess === 'Y' ? '是' : '否' }}</span>
+                    <span>{{ scope.row.Extend.IsAccess === 'Y' ? '是' : '否' }}</span>
                   </template>
                 </el-table-column>
                 <el-table-column
-                  prop="MENUCLASSDESC"
+                  prop="Extend.MENUCLASSDESC"
                   label="功能集名称"
                   width="150"
                 />
                 <el-table-column
-                  prop="CONTEXTMENUDESC"
+                  prop="Extend.CONTEXTMENUDESC"
                   label="已授权按钮名称"
                 />
               </el-table>
@@ -74,7 +75,6 @@
                 :data="RolePrivileageUserData.data"
                 style="width: 100%;margin-bottom: 20px;"
                 row-key="id"
-                size="mini"
                 highlight-current-row
                 border
                 @select="selectUserRow"
@@ -154,6 +154,7 @@ export default {
         children: 'children',
         label: 'label'
       },
+      RolePrivileageMenuDataLoading: false,
       RolePrivileageMenuData: [],
       RolePrivileageUserData: { data: [] },
       // 授权菜单参数
@@ -226,11 +227,13 @@ export default {
     // 获取角色的功能列表
     GetRoleAuthorize(roleid) {
       this.tabCardLoading = true
+      this.RolePrivileageMenuDataLoading = true
       role.GetRolePrivileageMenu({ roleid: roleid }).then(res => {
         if (res.Issuccess) {
           this.RolePrivileageMenuData = res.Data
         }
         this.tabCardLoading = false
+        this.RolePrivileageMenuDataLoading = false
       })
     },
     // 获取角色的授权用户列表 RolePrivileageUserData

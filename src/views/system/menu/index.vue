@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="Search-menubtn-toolbar">
-      <!-- <SearchConditionToolbar ref="searchCondition" :searchsetting="searchSetting" /> -->
+      <SearchConditionToolbar ref="searchCondition" :searchsetting="searchSetting" />
       <MenuBottomToolbar menuclass="BASE_SYSTEMMENU" />
     </div>
     <el-table
@@ -202,13 +202,6 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
-.Search-menubtn-toolbar{
-    background-color: #fff;
-    width: 100%;
-    display: inline-block;
-    margin: 5px 0px;
-    padding: 8px 10px;
-}
 .container-page-element{
     background-color: #fff;
     bottom: 0px;

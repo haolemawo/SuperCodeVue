@@ -10,7 +10,7 @@ const state = {
     width: document.documentElement.clientWidth,
     height: document.documentElement.clientHeight
   },
-  size: Cookies.get('size') != null ? Cookies.get('size') : 'default'
+  size: Cookies.get('size') != null ? Cookies.get('size') : 'small'
 }
 
 const mutations = {

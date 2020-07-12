@@ -7,7 +7,6 @@
           v-if="item.fldType == 'S'"
           v-model="item.ModelValue"
           :label="item.fldDesc"
-          :size="inputcontrolSize"
           :placeholder="item.placeHolder"
           :name="item.fldName"
           clearable
@@ -20,7 +19,6 @@
           v-model="item.ModelValue"
           clearable
           :style="{width:item.fldWidth}"
-          :size="inputcontrolSize"
           :placeholder="item.placeHolder"
           @change="onChange(index, item, $event)"
           @clear="onClearValue"
@@ -34,7 +32,7 @@
         </el-select>
       </div>
     </div>
-    <el-button v-show="isSearchButtonDisabled" class="searchBtn" type="primary" icon="el-icon-search" size="mini" @click="search">搜索</el-button>
+    <el-button v-show="isSearchButtonDisabled" class="searchBtn" type="primary" icon="el-icon-search" @click="search">搜索</el-button>
   </div>
 </template>
 
@@ -171,6 +169,7 @@ export default {
         float: left;
         background-color: #fff;
         display: inline-flex;
+        padding: 8px 10px;
     }
     .SearchConditionToolbarCon .searchBtn{
       margin-left: 5px;

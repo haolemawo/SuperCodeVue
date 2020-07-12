@@ -26,6 +26,7 @@
               node-key="id"
               default-expand-all
               highlight-current
+              @check="MenuChange"
               @node-click="MenuCheckChange"
             />
           </el-card>
@@ -48,13 +49,15 @@
                 </div>
               </div>
               <div class="menuclass-item-body">
+                <div>
+                  <el-checkbox-group v-model="MenuBtns.CheckedMenuNo" @change="MentBtnCheckedChange">
+                    <el-checkbox key="OpenMainMenu" label="OpenMainMenu">主菜单打开</el-checkbox>
+                  </el-checkbox-group>
+                </div>
                 <div v-if="MenuBtns.ContextBtnList.length > 0">
                   <el-checkbox-group v-model="MenuBtns.CheckedMenuNo" @change="MentBtnCheckedChange">
                     <el-checkbox v-for="btn in MenuBtns.ContextBtnList" :key="btn.ContextMenuNo" :label="btn.ContextMenuNo">{{ btn.ContextMenuName }}</el-checkbox>
                   </el-checkbox-group>
-                </div>
-                <div v-else style="color:#909399">
-                  暂无操作按钮
                 </div>
               </div>
             </div>
@@ -147,6 +150,7 @@ export default {
       const arr = []
       menuList.forEach(element => {
         const menuObj = {}
+        menuObj.DataID = element.DataID
         menuObj.id = element.MenuNo
         menuObj.label = element.MenuName
         if (element.IsHavaChild) {
@@ -156,12 +160,44 @@ export default {
       })
       return arr
     },
+    // 选择左侧菜单
+    MenuChange(data, nodeObj) {
+      this.setMenuSelectChang(data)
+    },
     MenuCheckChange() {
       // 左侧菜单树的点击
       const checkMenu = this.$refs.RoleMenuTree.getCurrentNode()
+      this.setMenuSelectChang(checkMenu)
+      // if (checkMenu) {
+      //   this.MenuBtnDatasLoading = true
+      //   const menuNo = checkMenu.id
+      //   this.CurentMenuNo = menuNo
+      //   let isHave = false
+      //   this.NeedSaveMenuBtnDatas.forEach(item => {
+      //     if (item.MenuNo === menuNo) {
+      //       this.MenuBtnDatas = item.MenuContextBtnData
+      //       isHave = true
+      //     }
+      //   })
+      //   if (!isHave) {
+      //     role.GetRoleAuthorMenuContextBtns({ menuNo: menuNo }).then(res => {
+      //       if (res.Issuccess) {
+      //         this.MenuBtnDatas = res.Data
+      //         this.NeedSaveMenuBtnDatas.push({ MenuNo: menuNo, MenuContextBtnData: res.Data })
+      //         console.log(this.NeedSaveMenuBtnDatas)
+      //       }
+      //       this.MenuBtnDatasLoading = false
+      //     })
+      //   } else {
+      //     this.MenuBtnDatasLoading = false
+      //   }
+      // }
+    },
+    setMenuSelectChang(checkMenu) {
       if (checkMenu) {
         this.MenuBtnDatasLoading = true
         const menuNo = checkMenu.id
+        const DataID = checkMenu.DataID
         this.CurentMenuNo = menuNo
         let isHave = false
         this.NeedSaveMenuBtnDatas.forEach(item => {
@@ -174,7 +210,7 @@ export default {
           role.GetRoleAuthorMenuContextBtns({ menuNo: menuNo }).then(res => {
             if (res.Issuccess) {
               this.MenuBtnDatas = res.Data
-              this.NeedSaveMenuBtnDatas.push({ MenuNo: menuNo, MenuContextBtnData: res.Data })
+              this.NeedSaveMenuBtnDatas.push({ DataID: DataID, MenuNo: menuNo, MenuContextBtnData: res.Data })
               console.log(this.NeedSaveMenuBtnDatas)
             }
             this.MenuBtnDatasLoading = false
@@ -247,7 +283,6 @@ export default {
     save() {
       // 保存
       const checkedMenuList = this.$refs.RoleMenuTree.getCheckedNodes()
-      console.log(checkedMenuList)
       if (checkedMenuList.length <= 0) {
         this.$message({
           message: '请先勾选您要授权的菜单',

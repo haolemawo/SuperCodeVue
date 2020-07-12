@@ -237,13 +237,6 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
-.Search-menubtn-toolbar{
-    background-color: #fff;
-    width: 100%;
-    display: inline-block;
-    margin: 5px 0px;
-    padding: 8px 10px;
-}
 .container-page-element{
     background-color: #fff;
     bottom: 0px;

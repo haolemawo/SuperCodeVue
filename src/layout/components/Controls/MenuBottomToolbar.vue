@@ -1,20 +1,19 @@
 // 菜单按钮控件
 <template>
   <div class="MenuButtomToolBarCon">
-    <el-row v-if="TopMenu">
+    <el-row v-if="TopMenu.length > 0">
       <el-button
         v-for="item in TopMenu"
         :key="item.ContextMenuNo"
         type="primary"
         icon="item.ImageName"
-        size="mini"
         plain
         @click="callFun(item.ContextMenuScript)"
       >{{ item.ContextMenuDesc }}</el-button>
       <!-- <el-button type="primary" icon="el-icon-search" size="mini" plain @click="Edit">编辑</el-button>
       <el-button type="primary" icon="el-icon-search" size="mini" plain>查看</el-button> -->
       <el-dropdown v-if="MoreMenu.length > 0" @command="handleCommand">
-        <el-button type="primary" size="mini">
+        <el-button type="primary">
           更多<i class="el-icon-arrow-down el-icon--right" />
         </el-button>
         <el-dropdown-menu slot="dropdown">
@@ -82,5 +81,6 @@ export default {
     .MenuButtomToolBarCon{
         float:right;
         background-color: #fff;
+        padding: 8px 10px;
     }
 </style>
