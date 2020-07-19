@@ -8,7 +8,8 @@ const state = {
   device: 'desktop',
   ScreenSize: {
     width: document.documentElement.clientWidth,
-    height: document.documentElement.clientHeight
+    height: document.documentElement.clientHeight,
+    tableHeight: document.documentElement.clientHeight - 200
   },
   size: Cookies.get('size') != null ? Cookies.get('size') : 'small'
 }

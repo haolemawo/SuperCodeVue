@@ -11,8 +11,8 @@
         stripe
         highlight-current-row
         border
-        height="450px"
-        style="width: 100%"
+        :height="$store.state.app.ScreenSize.tableHeight"
+        style="width: 100%; height: 465px;"
         current-row-key="MALLID"
         @row-click="RowSelect"
       >
