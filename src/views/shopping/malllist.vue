@@ -8,6 +8,7 @@
               v-model="mallTypeFilterText"
               placeholder="输入关键字进行过滤"
             />
+            <!-- @node-click="handleCheckChange" -->
             <el-tree
               ref="mallTypeTree"
               class="filter-tree"
@@ -18,7 +19,6 @@
               default-expand-all
               highlight-current
               :filter-node-method="filterMallTypeNode"
-              @node-click="handleCheckChange"
             />
           </el-card>
         </div>
@@ -151,9 +151,12 @@ export default {
       },
       dataCount: 0, // 总条数
       pageCount: 0, // 总页数
-      currentPage: 1, // 当前页
-      pageSize: 15, // 每页大小
-      pageFilter: '', // 页面过滤条件
+      query: {
+        currenrpage: 1, // 当前页
+        pageSize: 15, // 每页大小
+        filters: '',
+        typeids: []
+      },
       tableData: null,
       tableDataLoading: false,
       // 当前选择行
@@ -185,7 +188,7 @@ export default {
     },
     InitData() {
       this.tableDataLoading = true
-      Service.GetMallInfoList({ currenrpage: 1, pagesize: 15, filters: '' }).then(res => {
+      Service.GetMallInfoList(this.query).then(res => {
         if (res.Issuccess) {
           this.tableData = res.Data.data
         }
@@ -212,15 +215,22 @@ export default {
     },
     // 商城分类tree点击事件
     handleCheckChange(data, checked, indeterminate) {
-      this.currentRoleNode = this.$refs.RoleTree.getCurrentNode()
-      this.GetRoleAuthorize(this.currentRoleNode.id)
-      this.GetRoleAuthorizeUser(this.currentRoleNode.id)
+      this.currentRoleNode = this.$refs.mallTypeTree.getCurrentNode()
+      this.query.typeids = []
+      this.query.typeids.push(this.currentRoleNode.key)
+      this.search()
     },
     // 搜索事件
     search() {
       const filter = this.$refs.searchCondition.getFilterCondition()
+      const typeids = this.$refs.mallTypeTree.getCheckedKeys()
+      this.query.typeids = []
+      typeids.forEach(item => {
+        this.query.typeids.push(item)
+      })
       this.tableDataLoading = true
-      Service.GetMallInfoList({ currenrpage: 1, pagesize: 15, filters: filter }).then(res => {
+      this.query.filters = filter
+      Service.GetMallInfoList(this.query).then(res => {
         if (res.Issuccess) {
           this.tableData = res.Data.data
         }
@@ -283,7 +293,7 @@ export default {
     RefreshMallList() {
       // 刷新列表
       this.tableDataLoading = true
-      Service.GetMallInfoList({ currenrpage: 1, pagesize: 15, filters: '' }).then(res => {
+      Service.GetMallInfoList(this.query).then(res => {
         if (res.Issuccess) {
           this.tableData = res.Data.data
         }
@@ -304,13 +314,16 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
+/deep/.el-card__body{
+  padding: 10px
+}
 .container-page-element{
     background-color: #fff;
     bottom: 0px;
-    // position: absolute;
+    margin-bottom: 20px;
+    position: absolute;
     width: 100%;
     text-align: right;
-    margin-top: 10px;
 }
 .el-pagination{
   padding: 5px;

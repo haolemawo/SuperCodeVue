@@ -11,8 +11,8 @@
       highlight-current-row
       lazy
       :load="loadTreeData"
-      style="width: 100%"
       row-key="MALLTYPEID"
+      :fit="true"
       :tree-props="{children: 'children', hasChildren: 'hasChildren'}"
       @row-click="RowSelect"
     >
@@ -20,7 +20,6 @@
         fixed
         prop="MALLTYPECODE"
         label="分类编码"
-        width="200px"
       >
         <template slot-scope="scope">
           <el-image
@@ -35,7 +34,6 @@
         prop="MALLTYPENAME"
         label="分类名称"
         align="center"
-        width="200px"
       />
       <!-- <el-table-column
         prop="MALLTYPEICON"
@@ -46,7 +44,6 @@
       <el-table-column
         label="是否启用"
         align="center"
-        width="80px"
       >
         <template slot-scope="scope">
           <span style="margin-left: 10px">{{ scope.row.ISENABLED == 'Y' ? '是' : "否" }}</span>
@@ -55,7 +52,6 @@
       <el-table-column
         label="是否首页推荐"
         align="center"
-        width="120px"
       >
         <template slot-scope="scope">
           <span style="margin-left: 10px">{{ scope.row.ISHOMEPAGE == 'Y' ? '是' : "否" }}</span>
@@ -64,7 +60,6 @@
       <el-table-column
         label="创建时间"
         align="center"
-        width="180px"
       >
         <template slot-scope="scope">
           <span style="margin-left: 10px">{{ $moment(scope.row.CREATEDATE).format("YYYY-MM-DD") }}</span>

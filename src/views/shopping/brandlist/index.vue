@@ -11,6 +11,7 @@
         stripe
         highlight-current-row
         border
+        height="450px"
         style="width: 100%"
         current-row-key="MALLID"
         @row-click="RowSelect"
@@ -18,15 +19,15 @@
         <el-table-column prop="BRANDTYPENAME" label="品牌分类名称" align="center" width="120px" />
         <el-table-column prop="BRANDNAME" label="品牌名称" align="center" width="180px">
           <template slot-scope="scope">
-            <el-link :underline="false" type="primary" @click="clickName(scope.row.BRANDID)">{{scope.row.BRANDNAME}}</el-link>
+            <el-link :underline="false" type="primary" @click="clickName(scope.row.BRANDID)">{{ scope.row.BRANDNAME }}</el-link>
           </template>
         </el-table-column>
-        <el-table-column label="品牌Logo" align="center" width="180px">
+        <el-table-column label="品牌Logo" align="center" width="100px">
           <template slot-scope="scope">
             <img :src="scope.row.BRANDLOGO">
           </template>
         </el-table-column>
-        <el-table-column prop="BRANDWEBSITE" label="官网" align="center" width="80px" />
+        <el-table-column prop="BRANDWEBSITE" label="官网" align="center" width="180px" />
         <el-table-column label="是否热门" align="center" width="80px">
           <template slot-scope="scope">
             {{ scope.row.ISHOT == 'Y' ? '是' : '否' }}
@@ -55,6 +56,7 @@
         background
         layout="total,prev, pager, next"
         :total="dataCount"
+        :page-size="query.pagesize"
         :page-count="pageCount"
         :hide-on-single-page="true"
         @current-change="handleCurrentChange"
@@ -84,7 +86,7 @@ export default {
       },
       query: {
         currenrpage: 1,
-        pagesize: 15,
+        pagesize: 10,
         filters: ''
       },
       tableDataLoading: false,
@@ -189,6 +191,11 @@ export default {
     },
     RefreshList() {
       // 刷新列表
+      this.InitData()
+    },
+    // 搜索事件
+    search() {
+      this.query.filters = this.$refs.searchCondition.getFilterCondition()
       this.InitData()
     },
     clickName(keyid) {

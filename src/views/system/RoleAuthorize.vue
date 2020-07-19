@@ -41,6 +41,7 @@
                 row-key="key"
                 highlight-current-row
                 border
+                :span-method="RolePrivileageMenuDataSpanFun"
                 :tree-props="{children: 'children'}"
               >
                 <el-table-column
@@ -128,7 +129,7 @@
         </el-card>
       </template>
     </split-pane>
-    <RoleAuthorize-Form v-if="authorizeparams.isvisible" ref="RoleAuthorizeForm" :authorizeparams="authorizeparams" />
+    <RoleAuthorize-Form v-if="authorizeparams.isvisible" ref="RoleAuthorizeForm" :authorizeparams="authorizeparams" @RefreshDetailList="RefreshDetailList" />
     <RoleAuthorizeUser-Form v-if="authorizeuserparams.isvisible" ref="RoleAuthorizeUserForm" :authorizeuserparams="authorizeuserparams" />
   </div>
 </template>
@@ -248,7 +249,7 @@ export default {
     },
     // 刷新授权功能列表
     RefreshDetailList() {
-      this.GetDictionaryDetailList(this.detailformparams.typecode)
+      this.GetRoleAuthorize(this.currentRoleNode.id)
     },
     // 刷新授权用户列表
     RefreshUserList() {
@@ -319,6 +320,12 @@ export default {
         }
       })
       this.SaveDataLoading = false
+    },
+    RolePrivileageMenuDataSpanFun({ row, column, rowIndex, columnIndex }) {
+      console.log(row)
+      console.log(column)
+      console.log(rowIndex)
+      console.log(columnIndex)
     }
   }
 
@@ -327,9 +334,6 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.components-container {
-    margin-top: 10px;
-    height: 100%;
-}
+
 </style>
 

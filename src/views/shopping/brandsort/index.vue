@@ -11,6 +11,7 @@
         stripe
         highlight-current-row
         border
+        height="450px"
         style="width: 100%"
         current-row-key="MALLID"
         @row-click="RowSelect"
@@ -70,7 +71,7 @@ export default {
       },
       query: {
         currenrpage: 1,
-        pagesize: 15,
+        pagesize: 10,
         filters: ''
       },
       tableDataLoading: false,
@@ -99,6 +100,7 @@ export default {
       this.tableDataLoading = true
       Service.GetBrandTypeList(this.query).then(res => {
         if (res.Issuccess) {
+          this.tableData = []
           this.tableData = res.Data.data
           this.dataCount = res.Data.dataCount
           this.pageCount = res.Data.pageCount
@@ -175,6 +177,12 @@ export default {
     },
     RefreshList() {
       // 刷新列表
+      this.InitData()
+    },
+    // 搜索事件
+    search() {
+      const filter = this.$refs.searchCondition.getFilterCondition()
+      this.query.filters = filter
       this.InitData()
     },
     clickName(keyid) {

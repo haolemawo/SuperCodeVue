@@ -12,7 +12,7 @@
       :close-on-press-escape="false"
       :close-on-click-modal="false"
     >
-      <el-tabs v-loading="EditInitLoading" tab-position="left" style="height: 500px;">
+      <el-tabs v-loading="EditInitLoading" tab-position="left" style="height: 500px;over">
         <el-tab-pane label="基础信息">
           <el-form
             ref="entity"
@@ -20,13 +20,14 @@
             :inline="false"
             :rules="rules"
             :disabled="IsView"
-            label-width="110px"
+            label-width="120px"
           >
             <el-col :span="24">
               <el-col :span="12">
                 <el-form-item label="商品编码" prop="MALLCODE">
                   <el-input
                     v-model="MallBaseDetail.MALLCODE"
+                    class="inputFullWidth"
                     placeholder="商品编码"
                   >
                     <i v-if="!IsView" slot="suffix" class="cursor_pointer el-input__icon el-icon-orange" @click="AutoCode" />
@@ -35,14 +36,14 @@
               </el-col>
               <el-col :span="12">
                 <el-form-item label="商品名称" prop="MALLNAME">
-                  <el-input v-model="MallBaseDetail.MALLNAME" placeholder="商品名称" />
+                  <el-input v-model="MallBaseDetail.MALLNAME" class="inputFullWidth" placeholder="商品名称" />
                 </el-form-item>
               </el-col>
             </el-col>
             <el-col :span="24">
               <el-col :span="12">
                 <el-form-item label="商品分类" prop="MALLTYPEID">
-                  <el-select v-model="MallBaseDetail.MALLTYPEID" placeholder="商品分类">
+                  <el-select v-model="MallBaseDetail.MALLTYPEID" class="inputFullWidth" placeholder="商品分类">
                     <el-option
                       v-for="item in MallTypeSelectData"
                       :key="item.Key"
@@ -54,7 +55,52 @@
               </el-col>
               <el-col :span="12">
                 <el-form-item label="商品型号">
-                  <el-input v-model="MallBaseDetail.MALLMARQUE" placeholder="商品型号" />
+                  <el-input v-model="MallBaseDetail.MALLMARQUE" class="inputFullWidth" placeholder="商品型号" />
+                </el-form-item>
+              </el-col>
+            </el-col>
+            <el-col :span="24">
+              <el-col :span="12">
+                <el-form-item label="品牌分类" prop="MALLTYPEID">
+                  <el-select
+                    v-model="MallBaseDetail.BRANDTYPEID"
+                    clearable
+                    remote
+                    reserve-keyword
+                    placeholder="请选择品牌分类"
+                    :remote-method="remoteBrandType"
+                    :loading="SelectLoading"
+                    class="inputFullWidth"
+                    @change="changeBrandType"
+                  >
+                    <el-option
+                      v-for="item in BrandTypeSelectData"
+                      :key="item.BRANDTYPEID"
+                      :label="item.BRANDTYPENAME"
+                      :value="item.BRANDTYPEID"
+                    />
+                  </el-select>
+                </el-form-item>
+              </el-col>
+              <el-col :span="12">
+                <el-form-item label="商品品牌">
+                  <el-select
+                    v-model="MallBaseDetail.BRANDID"
+                    clearable
+                    remote
+                    reserve-keyword
+                    placeholder="请选择商品品牌"
+                    :remote-method="remoteBrand"
+                    :loading="SelectLoading"
+                    class="inputFullWidth"
+                  >
+                    <el-option
+                      v-for="item in BrandSelectData"
+                      :key="item.BRANDID"
+                      :label="item.BRANDNAME"
+                      :value="item.BRANDID"
+                    />
+                  </el-select>
                 </el-form-item>
               </el-col>
             </el-col>
@@ -71,7 +117,7 @@
               </el-col> -->
               <el-col :span="12">
                 <el-form-item label="库存单位" prop="STOCKUNIT">
-                  <el-select v-if="MallBaseDetail.STOCKUNIT" v-model="MallBaseDetail.STOCKUNIT" placeholder="库存单位">
+                  <el-select v-if="MallBaseDetail.STOCKUNIT" v-model="MallBaseDetail.STOCKUNIT" class="inputFullWidth" placeholder="库存单位">
                     <el-option
                       v-for="item in MallUnit"
                       :key="item.Key"
@@ -83,14 +129,14 @@
               </el-col>
               <el-col :span="12">
                 <el-form-item label="浏览量">
-                  <el-input v-model="MallBaseDetail.BROWSEVOLUME" type="number" placeholder="浏览量" />
+                  <el-input v-model="MallBaseDetail.BROWSEVOLUME" class="inputFullWidth" type="number" placeholder="浏览量" />
                 </el-form-item>
               </el-col>
             </el-col>
             <el-col :span="24">
               <el-col :span="12">
                 <el-form-item label="是否上架" prop="ISUPPERSHELF">
-                  <el-select v-model="MallBaseDetail.ISUPPERSHELF" placeholder="是否上架">
+                  <el-select v-model="MallBaseDetail.ISUPPERSHELF" class="inputFullWidth" placeholder="是否上架">
                     <el-option label="是" value="Y" />
                     <el-option label="否" value="N" />
                   </el-select>
@@ -98,7 +144,7 @@
               </el-col>
               <el-col :span="12">
                 <el-form-item label="是否首页推荐" prop="ISHOMEPAGE">
-                  <el-select v-model="MallBaseDetail.ISHOMEPAGE" placeholder="是否首页推荐">
+                  <el-select v-model="MallBaseDetail.ISHOMEPAGE" class="inputFullWidth" placeholder="是否首页推荐">
                     <el-option label="是" value="Y" />
                     <el-option label="否" value="N" />
                   </el-select>
@@ -108,19 +154,19 @@
             <el-col :span="24">
               <el-col :span="12">
                 <el-form-item label="最低起购">
-                  <el-input v-model="MallBaseDetail.MINIMUMPURCHASE" type="number" placeholder="最低起购，默认为1" />
+                  <el-input v-model="MallBaseDetail.MINIMUMPURCHASE" class="inputFullWidth" type="number" placeholder="最低起购，默认为1" />
                 </el-form-item>
               </el-col>
               <el-col :span="12">
                 <el-form-item label="单次最大购买量">
-                  <el-input v-model="MallBaseDetail.MAXIMUMSINGLEPURCHASE" type="number" placeholder="单次最大购买量" />
+                  <el-input v-model="MallBaseDetail.MAXIMUMSINGLEPURCHASE" class="inputFullWidth" type="number" placeholder="单次最大购买量" />
                 </el-form-item>
               </el-col>
             </el-col>
             <el-col :span="24">
               <el-col :span="12">
                 <el-form-item label="购买赠送积分">
-                  <el-input v-model="MallBaseDetail.PRESENTATIONPOINTS" type="number" placeholder="购买赠送积分" />
+                  <el-input v-model="MallBaseDetail.PRESENTATIONPOINTS" class="inputFullWidth" type="number" placeholder="购买赠送积分" />
                 </el-form-item>
               </el-col>
             </el-col>
@@ -343,15 +389,15 @@
           >
             <el-col :span="24">
               <el-form-item label="SEO标题">
-                <el-input v-model="MallBaseDetail.SEOTITLE" class="fullWidth" placeholder="SEO标题,一般不超过80个字符" />
+                <el-input v-model="MallBaseDetail.SEOTITLE" class="inputFullWidth" placeholder="SEO标题,一般不超过80个字符" />
               </el-form-item>
               <el-form-item label="SEO关键词">
-                <el-input v-model="MallBaseDetail.SEOKEYWORD" class="fullWidth" placeholder="SEO关键词,一般不超过100个字符，多个关键字以半圆角逗号 [ , ] 隔开" />
+                <el-input v-model="MallBaseDetail.SEOKEYWORD" class="inputFullWidth" placeholder="SEO关键词,一般不超过100个字符，多个关键字以半圆角逗号 [ , ] 隔开" />
               </el-form-item>
             </el-col>
             <el-col :span="24">
               <el-form-item label="SEO描述">
-                <el-input v-model="MallBaseDetail.SEODESCRIBE" class="fullWidth" type="textarea" placeholder="SEO描述,一般不超过200个字符" />
+                <el-input v-model="MallBaseDetail.SEODESCRIBE" class="inputFullWidth" type="textarea" placeholder="SEO描述,一般不超过200个字符" />
               </el-form-item>
             </el-col>
           </el-form>
@@ -367,8 +413,10 @@
 <script>
 import Tinymce from '@/components/Tinymce'
 import service from '@/api/shopping/shoppingmall'
+import brandServer from '@/api/shopping/BrandServer'
 import UploadService from '@/api/common/common.js'
 import { getToken } from '@/utils/auth'
+import { getFilterStr } from '@/layout/components/Controls/SearchConditionToolFun'
 
 export default {
   name: 'MallForm',
@@ -393,6 +441,8 @@ export default {
         MALLID: 0,
         MALLNAME: null,
         MALLCODE: null,
+        BRANDID: null,
+        BRANDTYPEID: null,
         MALLTYPEID: null,
         MALLMARQUE: null,
         QUANTITY: null,
@@ -435,36 +485,42 @@ export default {
       MallPhotoAlbumList: [],
       MallPhotoFileList: [],
       // 规格table动态表头
-      MallSpecificDynamicHeader: []
+      MallSpecificDynamicHeader: [],
+      SelectLoading: false,
+      BrandTypeSelectData: [],
+      BrandSelectData: []
     }
   },
   created() {
+    this.Init()
     if (this.params.type === 'Edit' || this.params.type === 'View') {
       this.InitEditData()
     }
     if (this.params.type === 'View') {
       this.IsView = true
     }
-    this.Init()
   },
   methods: {
+    // 初始化界面一些下拉框的值
     Init() {
       this.GetMallTypeTree()
+      this.remoteBrandType()
     },
     // 初始化商品分类下拉框的值
     GetMallTypeTree(typeid) {
+      // 商品分类
       service.GetMallTypeSelectTree2({ malltypeid: typeid }).then(response => {
         if (response.Issuccess) {
           this.MallTypeSelectData = response.Data
         }
       })
-      // 初始化商品单位下拉框的值
+      // 初始化商品单位下拉框的值 库存单位
       UploadService.GetPopSelect({ diccode: 'ShopMallUnit' }).then(response => {
         if (response.Issuccess) {
           this.MallUnit = response.Data
         }
       })
-      // 初始化商品规格下拉框的值
+      // 初始化商品规格下拉框的值 规格类型
       UploadService.GetPopSelect({ diccode: 'SpecificAtioin' }).then(response => {
         if (response.Issuccess) {
           this.MallSpecificAtioinTypeInitData = response.Data
@@ -647,6 +703,49 @@ export default {
       if (action === 'delete') { // 删除
         this.MallSpecificAtioinData.splice(this.MallSpecificAtioinData.indexOf(rowData), 1)
       }
+    },
+    remoteBrandType(keyWord) {
+      this.SelectLoading = true
+      const param = {
+        currenrpage: 1,
+        pagesize: 15,
+        filters: ''
+      }
+      brandServer.GetBrandTypeList(param).then(response => {
+        if (response.Issuccess) {
+          this.BrandTypeSelectData = []
+          this.BrandTypeSelectData = response.Data.data
+        }
+        this.SelectLoading = false
+      })
+    },
+    changeBrandType(typeid) {
+      const param = {
+        currenrpage: 1,
+        pagesize: 15,
+        filters: getFilterStr(' and BRANDTYPEID = ' + typeid)
+      }
+      brandServer.GetBrandList(param).then(response => {
+        if (response.Issuccess) {
+          this.BrandSelectData = []
+          this.BrandSelectData = response.Data.data
+        }
+      })
+    },
+    remoteBrand(keyWord) {
+      this.SelectLoading = true
+      const param = {
+        currenrpage: 1,
+        pagesize: 15,
+        filters: ''
+      }
+      brandServer.GetBrandList(param).then(response => {
+        if (response.Issuccess) {
+          this.BrandSelectData = []
+          this.BrandSelectData = response.Data.data
+        }
+        this.SelectLoading = false
+      })
     }
   }
 }
@@ -655,12 +754,6 @@ export default {
 .el-dialog__body{
     height: 480px;
     overflow: auto;
-}
-.el-input{
-    width: 200px;
-}
-.fullWidth{
-    width: 100%;
 }
 /deep/ .MallSpecificDt tbody .cell{
     padding-left: 0px;
@@ -683,5 +776,9 @@ export default {
     text-align: left !important;
     padding-left: 8px !important;
     padding-right: 5px !important;
+}
+/deep/.el-tabs__content{
+  overflow: auto;
+  height: 100%;
 }
 </style>

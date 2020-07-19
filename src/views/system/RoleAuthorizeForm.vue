@@ -49,11 +49,6 @@
                 </div>
               </div>
               <div class="menuclass-item-body">
-                <div>
-                  <el-checkbox-group v-model="MenuBtns.CheckedMenuNo" @change="MentBtnCheckedChange">
-                    <el-checkbox key="OpenMainMenu" label="OpenMainMenu">主菜单打开</el-checkbox>
-                  </el-checkbox-group>
-                </div>
                 <div v-if="MenuBtns.ContextBtnList.length > 0">
                   <el-checkbox-group v-model="MenuBtns.CheckedMenuNo" @change="MentBtnCheckedChange">
                     <el-checkbox v-for="btn in MenuBtns.ContextBtnList" :key="btn.ContextMenuNo" :label="btn.ContextMenuNo">{{ btn.ContextMenuName }}</el-checkbox>
@@ -311,6 +306,8 @@ export default {
               message: '保存成功',
               type: 'success'
             })
+            this.authorizeparams.isvisible = false
+            this.$emit('RefreshDetailList')
           } else {
             this.$message.error(res.DataMsg)
           }
