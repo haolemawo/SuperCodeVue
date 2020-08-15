@@ -43,4 +43,20 @@ export const brandmanager = {
     }
   ]
 }
+// 促销管理
+export const promotionmanager = {
+  path: '/promotion',
+  component: Layout,
+  redirect: '/promotion/couponlist',
+  name: 'promotionmanager',
+  meta: { title: '促销管理', icon: 'shopping', affix: false, menuno: 'SM_PROMOTIONMANAGER' },
+  children: [
+    {
+      path: 'couponlist',
+      name: '优惠券列表',
+      component: () => import('@/views/promotion/couponlist/index'),
+      meta: { title: '优惠券列表', icon: 'table', menuno: 'SM_SHOPCOUPONLIST' }
+    }
+  ]
+}
 // export default brandmanager

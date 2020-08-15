@@ -7,7 +7,7 @@ Vue.use(Router)
 import Layout from '@/layout'
 
 import systemmanagers from './modules/systemmanagers'
-import { shoppingmall, brandmanager } from './modules/shoppingmall'
+import { shoppingmall, brandmanager, promotionmanager } from './modules/shoppingmall'
 import website from './modules/website'
 
 /**
@@ -184,6 +184,7 @@ export const asyncRoutes = [
   systemmanagers,
   shoppingmall,
   brandmanager,
+  promotionmanager,
   website,
   // 404 page must be placed at the end !!!
   { path: '*', redirect: '/404', hidden: true }
