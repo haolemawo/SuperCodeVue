@@ -2,6 +2,7 @@
 <template>
   <div>
     <div class="Search-menubtn-toolbar">
+      <SearchConditionToolbar ref="searchCondition" :searchsetting="searchSetting" />
       <MenuBottomToolbar menuclass="WEB_ROTATIONSET" />
     </div>
     <el-table
@@ -59,6 +60,15 @@
         width="60px"
       />
       <el-table-column
+        label="展示端"
+        align="center"
+        width="80px"
+      >
+        <template slot-scope="scope">
+          <span style="margin-left: 10px">{{ scope.row.SHOWPLACE==='Applets'?'小程序':scope.row.SHOWPLACE === 'Mobile' ? '手机端' : scope.row.SHOWPLACE === 'PC' ? '电脑端' : '' }}</span>
+        </template>
+      </el-table-column>
+      <el-table-column
         label="创建时间"
         align="center"
         width="150px"
@@ -91,13 +101,30 @@
 <script>
 import Service from '@/api/WebSite/RotatioinSet'
 import MenuBottomToolbar from '@/layout/components/Controls/MenuBottomToolbar'
+import SearchConditionToolbar from '@/layout/components/Controls/SearchConditionToolbar'
 import RotationSetForm from './RotationSetForm'
 import commonService from '@/api/common/common'
 
 export default {
-  components: { MenuBottomToolbar, 'RotationSet-Form': RotationSetForm },
+  components: { MenuBottomToolbar, SearchConditionToolbar, 'RotationSet-Form': RotationSetForm },
   data() {
     return {
+      searchSetting: { // 搜索字段初始化
+        searchConditionId: 'searchConditionId',
+        fields: [{
+          fldName: 'SHOWPLACE', fldType: 'LC', fldDesc: '分类名称', placeHolder: '分类名称',
+          dataSource: [{
+            value: 'Applets',
+            text: '小程序'
+          }, {
+            value: 'Mobile',
+            text: '手机端'
+          }, {
+            value: 'PC',
+            text: '电脑端'
+          }]
+        }]
+      },
       tableDataLoading: false,
       dataCount: 10, // 总条数
       pageCount: 10, // 总页数
@@ -110,6 +137,11 @@ export default {
       showRoleForm: false,
       formparams: {
         isvisible: false
+      },
+      query: {
+        currenrpage: 1, // 当前页
+        pageSize: 15, // 每页大小
+        filters: ''
       }
     }
   },
@@ -126,9 +158,11 @@ export default {
     },
     InitData() {
       this.tableDataLoading = true
-      Service.GetRotationList({ currenrpage: 1, pagesize: 15, filters: '' }).then(res => {
+      this.tableData = []
+      Service.GetRotationList(this.query).then(res => {
         if (res.Issuccess) {
           this.tableData = res.Data.data
+          this.dataCount = this.tableData.length
         }
         this.tableDataLoading = false
       })
@@ -198,6 +232,13 @@ export default {
     },
     RefreshList() {
       // 刷新列表
+      this.InitData()
+    },
+    // 搜索事件
+    search() {
+      const filter = this.$refs.searchCondition.getFilterCondition()
+      this.tableDataLoading = true
+      this.query.filters = filter
       this.InitData()
     }
   }

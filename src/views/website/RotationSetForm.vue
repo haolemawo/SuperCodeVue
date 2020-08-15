@@ -23,6 +23,13 @@
             <el-option label="否" value="N" />
           </el-select>
         </el-form-item>
+        <el-form-item label="展示端" prop="SHOWPLACE">
+          <el-select v-model="entity.SHOWPLACE" placeholder="请选择展示端">
+            <el-option label="小程序" value="Applets" />
+            <el-option label="手机端" value="Mobile" />
+            <el-option label="电脑端" value="PC" />
+          </el-select>
+        </el-form-item>
         <el-form-item label="排序">
           <el-input-number v-model="entity.SEQ" placeholder="排序" controls-position="right" :min="1" :max="10" />
         </el-form-item>
@@ -83,6 +90,7 @@ export default {
         ROTATIONHEIGHT: null,
         ROTATIONFILENAME: null,
         ROTATIONFILEPATH: null,
+        SHOWPLACE: null,
         ISENABLED: null,
         SEQ: null,
         REMARK: null
@@ -93,6 +101,9 @@ export default {
         ],
         ISENABLED: [
           { required: true, message: '请选择是否启用', trigger: 'change' }
+        ],
+        SHOWPLACE: [
+          { required: true, message: '请选择展示端', trigger: 'change' }
         ]
       }
     }
