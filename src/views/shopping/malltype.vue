@@ -50,6 +50,14 @@
         </template>
       </el-table-column>
       <el-table-column
+        label="首页是否显示"
+        align="center"
+      >
+        <template slot-scope="scope">
+          <span style="margin-left: 10px">{{ scope.row.ISSHOWHOME == 'Y' ? '是' : "否" }}</span>
+        </template>
+      </el-table-column>
+      <el-table-column
         label="是否首页推荐"
         align="center"
       >

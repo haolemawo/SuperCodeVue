@@ -66,10 +66,10 @@
             </el-form-item>
           </el-col>
           <el-col :span="12">
-            <el-form-item label="是否启用">
-              <el-select v-model="entity.ISENABLED" placeholder="是否启用">
-                <el-option label="启用" value="Y" />
-                <el-option label="停用" value="N" />
+            <el-form-item label="首页是否显示">
+              <el-select v-model="entity.ISSHOWHOME" placeholder="首页是否显示">
+                <el-option label="是" value="Y" />
+                <el-option label="否" value="N" />
               </el-select>
             </el-form-item>
           </el-col>
@@ -80,6 +80,14 @@
               <el-input v-model="entity.MALLTYPEICON" placeholder="分类图标" />
             </el-form-item>
           </el-col> -->
+          <el-col :span="12">
+            <el-form-item label="是否启用">
+              <el-select v-model="entity.ISENABLED" placeholder="是否启用">
+                <el-option label="启用" value="Y" />
+                <el-option label="停用" value="N" />
+              </el-select>
+            </el-form-item>
+          </el-col>
           <el-col :span="12">
             <el-form-item label="分类图标" class="upload-mallicon-form" prop="MALLTYPEICON">
               <!-- <el-input v-model="entity.MALLTYPEICON" placeholder="分类图标" /> -->
@@ -148,6 +156,7 @@ export default {
         PARENTYPEID: null,
         MALLTYPEICON: null,
         MALLTYPEIMAGE: null,
+        ISSHOWHOME: null,
         SEQNO: null,
         ISENABLED: null,
         ISHOMEPAGE: null,
