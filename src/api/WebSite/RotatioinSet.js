@@ -1,5 +1,5 @@
 /**
- * 用户登录、权限等管理接口
+ * 轮播图设置
  */
 import $base from '../base' // 导入接口域名列表
 import request from '@/request/http' // 导入http中创建的axios实例

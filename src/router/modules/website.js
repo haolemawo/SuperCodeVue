@@ -19,6 +19,12 @@ const website = {
       name: '小程序设置',
       component: () => import('@/views/website/WechatAppletSet'),
       meta: { title: '小程序设置', icon: 'table', menuno: 'WEB_WECHATAPPLETSET' }
+    },
+    {
+      path: 'WebBaseSet',
+      name: '网站设置',
+      component: () => import('@/views/website/baseseting'),
+      meta: { title: '网站设置', icon: 'table', menuno: 'WEB_WEBBASESET' }
     }
   ]
 }
