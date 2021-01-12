@@ -104,6 +104,12 @@ instance.interceptors.request.use(
       // 让每个请求携带
       config.headers.Authorization = 'Bearer ' + getToken()
     }
+    // 应用编码
+    config.headers['Application-Code'] = store.state.app.ApplicationCode
+    // 当前系统
+    config.headers['Current-osVersion'] = store.state.app.osVersion
+    // 当前浏览器
+    config.headers['Current-Browser'] = store.state.app.CurrentBrowser
     return config
   },
   error => Promise.error(error))

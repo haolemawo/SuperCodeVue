@@ -5,30 +5,30 @@ export function GetCurrentBrowser() {
   if (ua.match(/msie/) != null || ua.match(/trident/) != null) {
     browserType = 'IE'
   } else if (ua.match(/firefox/) != null) {
-    browserType = 'firefox'
+    browserType = 'Firefox'
   } else if (ua.match(/ucbrowser/) != null) {
     browserType = 'UC'
   } else if (ua.match(/opera/) != null || ua.match(/opr/) != null) {
-    browserType = 'opera'
+    browserType = 'Opera'
   } else if (ua.match(/bidubrowser/) != null) {
-    browserType = 'baidu'
+    browserType = 'Baidu'
   } else if (ua.match(/metasr/) != null) {
-    browserType = 'sougou'
+    browserType = 'Sougou'
   } else if (ua.match(/tencenttraveler/) != null || ua.match(/qqbrowse/) != null) {
     browserType = 'QQ'
   } else if (ua.match(/maxthon/) != null) {
-    browserType = 'maxthon'
+    browserType = 'Maxthon'
   } else if (ua.match(/chrome/) != null) {
     var is360 = _mime('type', 'application/vnd.chromium.remoting-viewer')
     if (is360) {
       browserType = '360'
     } else {
-      browserType = 'chrome'
+      browserType = 'Chrome'
     }
   } else if (ua.match(/safari/) != null) {
     browserType = 'Safari'
   } else {
-    browserType = 'others'
+    browserType = 'Others'
   }
   return browserType
 }
@@ -71,5 +71,8 @@ export function GetOs() {
   if (sUserAgent.indexOf('windows phone') > -1) return 'Windows Phone'
   if (sUserAgent.indexOf('ipad') > -1) return 'iPad'
   if (sUserAgent.indexOf('ipod') > -1) return 'iPod'
+  if (sUserAgent.indexOf('windows') > -1) return 'Windows'
+  if (sUserAgent.indexOf('mac ox x') > -1) return 'Mac'
+  if (sUserAgent.indexOf('linux') > -1) return 'Linux'
   return 'others'
 }

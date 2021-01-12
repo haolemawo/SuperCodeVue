@@ -52,7 +52,7 @@ export default {
       defaultInputWidth: '150px', // input 默认宽度
       IsShowSearch: true, // 是否显示搜索框， 如果没有搜索字段，默认为false
       isSearchButtonDisabled: true, // 是否显示搜索按钮
-      filterConditionArr: [], // 用于返回搜索条件的字符串
+      filterConditionArr: [] // 用于返回搜索条件的字符串
     }
   },
   // watch: {
@@ -155,6 +155,10 @@ export default {
         result = Base64.encode(params)
       }
       return result
+    },
+    // 返回搜索条件的结果数组
+    getfilterConditionArr() {
+      return this.filterConditionArr
     },
     // 搜索事件
     search() {

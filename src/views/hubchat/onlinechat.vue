@@ -33,10 +33,39 @@
       <template slot="paneR">
         <el-card class="userChatTalk-container" :style="chatWidthHeight">
           <div slot="header" class="clearfix">
-            <span>{{ currentUserChat != null ? currentUserChat.username : '' }}</span>
+            <span>{{ currentUserChat != null ? currentUserChat.username : '欢迎回来~~~' }}</span>
           </div>
-          <div v-for="o in 10" :key="o" class="text item">
-            {{ '列表内容 ' + o }}
+          <div class="chatcontainer">
+            <div v-for="o in 30" :key="o" class="text item">
+              {{ '列表内容 ' + o }}
+            </div>
+          </div>
+          <div class="chat-AssistTool">
+            <el-tooltip effect="dark" class="Litem" content="表情" placement="top">
+              <i class="el-icon-edit" />
+            </el-tooltip>
+            <el-tooltip effect="dark" class="Litem" content="图片" placement="top">
+              <i class="el-icon-picture-outline-round" />
+            </el-tooltip>
+            <el-tooltip effect="dark" class="Litem" content="截图" placement="top">
+              <i class="el-icon-scissors" />
+            </el-tooltip>
+            <el-tooltip effect="dark" class="Litem" content="留言" placement="top">
+              <i class="el-icon-s-promotion" />
+            </el-tooltip>
+          </div>
+          <div style="height:100%;">
+            <el-input
+              v-model="NeedSendMessage"
+              type="textarea"
+              placeholder="请输入内容"
+              show-word-limit
+              clearable
+              rows="4"
+              resize="none"
+              class="chat-textarea"
+            />
+            <el-button class="chat-btnSend" :type="SendMessageBtnType" round @click="SendMessageFun">发送</el-button>
           </div>
         </el-card>
       </template>
@@ -52,6 +81,8 @@ export default {
   data() {
     return {
       userNameFilterText: '',
+      NeedSendMessage: '',
+      SendMessageBtnType: '',
       userChatList: [{
         username: '张三',
         userid: '1',
@@ -76,28 +107,88 @@ export default {
     }
   },
   computed: {
-    // 滚动区高度
-    // (业务需求：手机屏幕高度减去头部标题和底部tabbar的高度，当然这2个高度也是可以动态获取的)
+    // 动态设置高度
     chatWidthHeight: function() {
       const Height = (document.documentElement.clientHeight - 160) + 'px'
       return { height: Height }
     }
   },
+  watch: {
+    NeedSendMessage(val) {
+      if (val !== '') {
+        this.SendMessageBtnType = 'primary'
+      } else {
+        this.SendMessageBtnType = ''
+      }
+    }
+  },
   created() {
-    const conn = $.hubConnection('https://localhost:44359/api/chatHub', { qs: 'clientId=1232222' })
-    var demoChatHubProxy = conn.createHubProxy('ChatHub')
-    demoChatHubProxy.on('ReceiveMessage', function(message) {
-      console.log(message)
+    // this.signalr.on('GetOnlineUserInfo', function(res) {
+    //   // 可以做相关业务逻辑
+    //   console.log('signalr 来了')
+    //   console.log(res)
+    // })
+    var CurrentUser = {
+      'UserName': '222用户',
+      'UserID': '123123132123',
+      'UserRole': 'Sender'
+    }
+    this.signalr.start().then(res => {
+      this.signalr.invoke('SendLogin', CurrentUser, function(res) {
+        // 可以做相关业务逻辑
+        console.log('获取在线人员信息2')
+        console.log(res)
+      })
     })
-    conn.start()
-      .done(function() { console.log('Now connected, connection ID=' + conn.id) })
-      .fail(function() { console.log('Could not connect') })
+    this.ReceiveMessage()
+    this.ReceiveOnlineUserInfo()
+    // this.signalr.start()
   },
   // 在Vue的生命周期函数mounted中进行连接
   mounted() {
-
+    // this.signalr.invoke('GetOnlineUserInfo', function(res){
+    //   console.log(res)
+    // })
   },
   methods: {
+    ReceiveOnlineUserInfo() {
+      this.signalr.on('ReceiveOnlineUserInfo', function(res) {
+        // 可以做相关业务逻辑
+        console.log('获取在线人员信息2')
+        console.log(res)
+      })
+    },
+    ReceiveMessage() {
+      this.signalr.on('ReceiveMessage', function(res) {
+        if (res.messageLevel === 'Broadcast') {
+          alert(res.fromUserName + '说：' + res.message)
+        } else {
+          console.log(res)
+        }
+      })
+    },
+    SendMessageFun() { // 点击按钮发送消息
+      if (this.NeedSendMessage) {
+        var msg = {
+          fromUserName: '李四',
+          fromUserid: '1999',
+          Message: this.NeedSendMessage,
+          IsSendAll: true,
+          MessageLevel: 'Broadcast'
+        }
+        this.signalr.invoke('SendMessage', msg).then(res => {
+          console.log(res)
+        }).catch(err => {
+          console.log(err)
+        })
+      } else {
+        this.$message({
+          showClose: true,
+          message: '请先输入消息，消息内容不能为空',
+          type: 'warning'
+        })
+      }
+    },
     switchUserChat(userchat) {
       this.currentUserChat = userchat
     },
@@ -114,6 +205,7 @@ export default {
 }
 /deep/ .chatUser-container .el-card__body{
   padding: 0px;
+
 }
 .chatUserList{
   overflow-y: scroll;
@@ -161,7 +253,36 @@ export default {
     display: none;
     cursor: pointer;
 }
-.userChatTalk-container .el-card__header{
+.userChatTalk-container {
+  /deep/.el-card__header{
     padding: 10px 15px;
+  }
+  /deep/.el-card__body{
+    height: 100%;
+    padding: 0px;
+  }
+}
+.chatcontainer{
+  height: 60%;
+  overflow-y: auto;
+  background-color: #F0F2F5;
+}
+.chat-AssistTool{
+  padding: 10px 15px;
+  .Litem{
+    margin-right: 10px;
+    cursor: pointer;
+  }
+}
+.chat-textarea {
+  /deep/.el-textarea__inner{
+    border: 0px;
+ }
+}
+.chat-btnSend{
+  margin-bottom: 20px;
+  position: fixed;
+  right: 20px;
+  bottom: 10px;
 }
 </style>
