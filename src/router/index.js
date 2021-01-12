@@ -6,7 +6,7 @@ Vue.use(Router)
 /* Layout */
 import Layout from '@/layout'
 
-import systemmanagers from './modules/systemmanagers'
+import { systemmanagers, systemmonitoring } from './modules/systemmanagers'
 import { shoppingmall, brandmanager, promotionmanager } from './modules/shoppingmall'
 import website from './modules/website'
 
@@ -182,6 +182,7 @@ export const asyncRoutes = [
     ]
   },
   systemmanagers,
+  systemmonitoring,
   shoppingmall,
   brandmanager,
   promotionmanager,

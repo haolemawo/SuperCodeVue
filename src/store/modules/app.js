@@ -1,11 +1,16 @@
 import Cookies from 'js-cookie'
+const Base64 = require('js-base64').Base64
+import { GetCurrentBrowser, GetOs } from '@/utils/common/devicebase'
 
 const state = {
   sidebar: {
     opened: Cookies.get('sidebarStatus') ? !!+Cookies.get('sidebarStatus') : true,
     withoutAnimation: false
   },
-  device: 'desktop',
+  device: 'PC',
+  ApplicationCode: Base64.encode('Mall'), // 当前请求的系统应用编码
+  osVersion: GetOs(),
+  CurrentBrowser: GetCurrentBrowser(),
   ScreenSize: {
     width: document.documentElement.clientWidth,
     height: document.documentElement.clientHeight,
