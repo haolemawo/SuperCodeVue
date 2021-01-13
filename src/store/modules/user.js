@@ -1,8 +1,8 @@
 // import { login, logout, getInfo } from '@/api/user'
 import user from '@/api/user'
 import { Message } from 'element-ui'
-import { getToken, setToken, removeToken, setCookiesUserInfo, getCookiesUserInfo } from '@/utils/auth'
-// import { resetRouter } from '@/router'
+import { getToken, setToken, removeToken, setCookiesUserInfo, getCookiesUserInfo, removeCookiesUserInfo } from '@/utils/auth'
+import { resetRouter } from '@/router'
 
 const getDefaultState = () => {
   return {
@@ -104,19 +104,30 @@ const actions = {
       })
     })
   },
-  // // user logout
-  // logout({ commit, state }) {
-  //   return new Promise((resolve, reject) => {
-  //     logout(state.token).then(() => {
-  //       removeToken() // must remove  token  first
-  //       resetRouter()
-  //       commit('RESET_STATE')
-  //       resolve()
-  //     }).catch(error => {
-  //       reject(error)
-  //     })
-  //   })
-  // },
+  // 退出
+  logout({ commit, state }) {
+    return new Promise((resolve, reject) => {
+      user.loginout().then(res => {
+        if (res) {
+          if (res.Issuccess) {
+            // 移出token
+            removeToken()
+            removeCookiesUserInfo()
+            resetRouter()
+          } else {
+            Message({
+              showClose: true,
+              message: res.DataMsg,
+              type: 'error'
+            })
+          }
+        }
+        resolve()
+      }).catch(err => {
+        reject(err)
+      })
+    })
+  },
 
   // remove token
   resetToken({ commit }) {

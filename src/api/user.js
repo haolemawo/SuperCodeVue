@@ -12,6 +12,13 @@ const user = {
       params: params
     })
   },
+  // 用户退出登录
+  loginout() {
+    return request({
+      url: $base.web + '/Auth/LoginOut',
+      method: 'post'
+    })
+  },
   // 根据 token，获取用户信息对象
   getInfo(token) {
     const postData = qs.stringify({
@@ -30,7 +37,7 @@ const user = {
       method: 'post'
     })
   }
-  // 根据MenuNo获取当前的
+  
 }
 
 export default user

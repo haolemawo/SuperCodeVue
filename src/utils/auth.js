@@ -42,7 +42,7 @@ export function setCookiesUserInfo(user) {
     return null
   }
 }
-// // 删除当前用户
-// export function removeCookiesUserInfo() {
-//   return Cookies.remove(CurrentUser)
-// }
+// 删除当前用户
+export function removeCookiesUserInfo() {
+  return Cookies.remove(CurrentUser)
+}
