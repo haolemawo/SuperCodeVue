@@ -6,7 +6,7 @@ import axios from 'axios'
 import router from '@/router'
 import { Message, Notification } from 'element-ui'
 import store from '@/store'
-import { getToken } from '@/utils/auth'
+import { getToken, getUUID } from '@/utils/auth'
 
 /** 提示函数
  * 5 秒后自动消失
@@ -103,6 +103,7 @@ instance.interceptors.request.use(
     if (store.getters.token) {
       // 让每个请求携带
       config.headers.Authorization = 'Bearer ' + getToken()
+      config.headers['Session-UUID'] = getUUID()
     }
     // 应用编码
     config.headers['Application-Code'] = store.state.app.ApplicationCode

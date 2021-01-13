@@ -3,16 +3,23 @@ import { decode, encode } from '@/utils/common/base64'
 
 const TokenKey = 'CurrentToken' // token key值
 const CurrentUser = 'CurrentUserInfo' // 用户信息key值
+const CurrentUUID = 'CurrentUUID' // uuid key值
 // 获取当前token
 export function getToken() {
   return Cookies.get(TokenKey)
 }
-// 保存当前token
-export function setToken(token) {
+// 获取当前uuid
+export function getUUID() {
+  return Cookies.get(CurrentUUID)
+}
+// 保存当前token、 uuid
+export function setToken(token, uuid) {
+  Cookies.set(CurrentUUID, uuid)
   return Cookies.set(TokenKey, token)
 }
-// 删除当前token
+// 删除当前token、 uuid
 export function removeToken() {
+  Cookies.remove(CurrentUUID)
   return Cookies.remove(TokenKey)
 }
 // 获取当前用户

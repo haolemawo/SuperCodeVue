@@ -23,6 +23,9 @@ const mutations = {
   SET_TOKEN: (state, token) => {
     state.token = token
   },
+  SET_UUID: (state, uuid) => {
+    state.uuid = uuid
+  },
   SET_NAME: (state, name) => {
     state.name = name
   },
@@ -44,9 +47,11 @@ const actions = {
       user.login(userInfo).then(res => {
         if (res) {
           if (res.Issuccess) {
-            const token = res.Data.Value.token
+            const token = res.Data.token.token
+            const uuid = res.Data.UUID
             commit('SET_TOKEN', token)
-            setToken(token)
+            commit('SET_UUID', uuid)
+            setToken(token, uuid)
             Message({
               showClose: true,
               message: '登录成功，欢迎回来',
