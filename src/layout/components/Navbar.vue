@@ -5,7 +5,7 @@
     <breadcrumb class="breadcrumb-container" />
 
     <div class="right-menu">
-      <template v-if="device!=='mobile'">
+      <div v-if="device!=='mobile'" style="display: inline-block;height: 50px;line-height: 50px;">
         <!-- <search id="header-search" class="right-menu-item" />
 
         <error-log class="errLog-container right-menu-item hover-effect" />
@@ -16,7 +16,7 @@
           <size-select id="size-select" class="right-menu-item hover-effect" />
         </el-tooltip>
 
-      </template>
+      </div>
       <el-dropdown class="avatar-container" trigger="click">
         <div class="avatar-wrapper">
           <img src="@/assets/images/1.jpg" class="user-avatar">
@@ -31,12 +31,18 @@
           <a target="_blank" href="https://panjiachen.github.io/vue-element-admin-site/#/">
             <el-dropdown-item>帮助文档</el-dropdown-item>
           </a> -->
+          <el-dropdown-item @click.native="modifypwdFun">
+            修改密码
+          </el-dropdown-item>
           <el-dropdown-item divided @click.native="logout">
             <span style="display:block;">退出</span>
           </el-dropdown-item>
         </el-dropdown-menu>
       </el-dropdown>
     </div>
+
+    <!-- 修改密码表单 -->
+    <ModifyUserPwdForm v-if="modifyPwdParams.isvisible" ref="modifyUserPwdForm" :formparams="modifyPwdParams" />
   </div>
 </template>
 
@@ -45,12 +51,21 @@ import { mapGetters } from 'vuex'
 import Breadcrumb from '@/components/Breadcrumb'
 import SizeSelect from '@/components/SizeSelect'
 import Hamburger from '@/components/Hamburger'
+import ModifyUserPwdForm from '@/views/baseinfo/ModifyUserPwdForm'
 
 export default {
   components: {
     Breadcrumb,
     SizeSelect,
-    Hamburger
+    Hamburger,
+    ModifyUserPwdForm
+  },
+  data() {
+    return {
+      modifyPwdParams: { // 导入参数
+        isvisible: false
+      }
+    }
   },
   computed: {
     ...mapGetters([
@@ -62,6 +77,15 @@ export default {
   methods: {
     toggleSideBar() {
       this.$store.dispatch('app/toggleSideBar')
+    },
+    // 修改密码
+    modifypwdFun() {
+      this.modifyPwdParams.isvisible = false
+      this.$nextTick(() => {
+        this.modifyPwdParams = {
+          isvisible: true
+        }
+      })
     },
     async logout() {
       await this.$store.dispatch('user/logout')
@@ -99,7 +123,6 @@ export default {
   .right-menu {
     float: right;
     height: 100%;
-    line-height: 50px;
 
     &:focus {
       outline: none;
@@ -125,18 +148,15 @@ export default {
 
     .avatar-container {
       margin-right: 30px;
-
       .avatar-wrapper {
         margin-top: 5px;
         position: relative;
-
         .user-avatar {
           cursor: pointer;
           width: 40px;
           height: 40px;
           border-radius: 10px;
         }
-
         .el-icon-caret-bottom {
           cursor: pointer;
           position: absolute;

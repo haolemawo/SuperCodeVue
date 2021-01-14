@@ -43,6 +43,15 @@ const userinfo = {
         'Content-Type': 'multipart/form-data'
       }
     })
+  },
+  // 修改密码
+  modifyUserPwd(params) {
+    const postData = qs.stringify(params)
+    return request({
+      url: $base.web + '/Auth/ModifyUserPwd',
+      method: 'post',
+      data: postData
+    })
   }
 }
 
