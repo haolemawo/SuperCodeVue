@@ -52,6 +52,15 @@ const userinfo = {
       method: 'post',
       data: postData
     })
+  },
+  // 锁屏之后解锁时校验
+  UnLockScreenCheckPwd(params) {
+    const postData = qs.stringify(params)
+    return request({
+      url: $base.web + '/Auth/UnLockScreenCheckPwd',
+      method: 'post',
+      data: postData
+    })
   }
 }
 

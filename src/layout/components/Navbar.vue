@@ -11,7 +11,9 @@
         <error-log class="errLog-container right-menu-item hover-effect" />
 
         <screenfull id="screenfull" class="right-menu-item hover-effect" /> -->
-
+        <el-tooltip content="锁屏" effect="dark" placement="bottom">
+          <lock-screen id="lock-screen" class="right-menu-item hover-effect" />
+        </el-tooltip>
         <el-tooltip content="设置大小" effect="dark" placement="bottom">
           <size-select id="size-select" class="right-menu-item hover-effect" />
         </el-tooltip>
@@ -51,6 +53,7 @@ import { mapGetters } from 'vuex'
 import Breadcrumb from '@/components/Breadcrumb'
 import SizeSelect from '@/components/SizeSelect'
 import Hamburger from '@/components/Hamburger'
+import LockScreen from '@/components/LockScreen'
 import ModifyUserPwdForm from '@/views/baseinfo/ModifyUserPwdForm'
 
 export default {
@@ -58,6 +61,7 @@ export default {
     Breadcrumb,
     SizeSelect,
     Hamburger,
+    LockScreen,
     ModifyUserPwdForm
   },
   data() {
