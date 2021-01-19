@@ -6,6 +6,7 @@ Vue.use(Router)
 /* Layout */
 import Layout from '@/layout'
 
+import { UserManager, Organization } from './modules/commonmenu'
 import { systemmanagers, systemmonitoring } from './modules/systemmanagers'
 import { shoppingmall, brandmanager, promotionmanager } from './modules/shoppingmall'
 import website from './modules/website'
@@ -77,7 +78,7 @@ export const constantRoutes = [
       path: 'home',
       name: 'home',
       component: () => import('@/views/home/index'),
-      meta: { title: '主页', icon: 'home', affix: true }
+      meta: { title: '主页', icon: 'icon-iconzhuye', affix: true }
     }]
   }
   // {
@@ -166,21 +167,8 @@ export const constantRoutes = [
 ]
 // 异步菜单，会进行后端菜单校验之后，将符合条件的绑定到界面菜单上
 export const asyncRoutes = [
-  {
-    path: '/baseinfo',
-    component: Layout,
-    redirect: '/baseinfo/userlist',
-    name: '基础信息',
-    meta: { title: '基础信息', icon: 'example', affix: false, menuno: 'BASE_INFOMANAGER' },
-    children: [
-      {
-        path: 'userlist',
-        name: '用户管理',
-        component: () => import('@/views/baseinfo/userlist'),
-        meta: { title: '用户管理', icon: 'table', menuno: 'BASE_USERINFO' }
-      }
-    ]
-  },
+  UserManager, 
+  Organization,
   systemmanagers,
   systemmonitoring,
   shoppingmall,

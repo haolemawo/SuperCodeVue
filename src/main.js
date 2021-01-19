@@ -6,7 +6,7 @@ import ElementUI from 'element-ui'
 import 'element-ui/lib/theme-chalk/index.css'
 // import locale from 'element-ui/lib/locale/lang/en' // lang i18n
 import locale from 'element-ui/lib/locale/lang/zh-CN' // lang i18n
-
+import '@/assets/iconfont/iconfont.css' // 引入iconfont
 import '@/styles/index.scss' // global css
 import Cookies from 'js-cookie'
 import App from './App'
@@ -24,10 +24,10 @@ Vue.use(VueBus)
 
 import $ from 'jquery'
 // import '../node_modules/signalr/jquery.signalR.min.js'
-import 'signalr'
+// import 'signalr'
 // 实时消息推送
-// import signalr from './utils/hubchat/signalR'
-// Vue.use(signalr)
+import signalr from './utils/hubchat/signalR'
+Vue.use(signalr)
 // set ElementUI lang to EN
 Vue.use(ElementUI, {
   size: Cookies.get('size') || 'medium', // 设置 element-ui 默认大小
