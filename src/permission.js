@@ -30,7 +30,7 @@ router.beforeEach(async(to, from, next) => {
       if (hasGetUserInfo) {
         next()
       } else {
-        const fromPath = GetUrlRelativePath(window.location.href)
+        // const fromPath = GetUrlRelativePath(window.location.href)
         try {
           // 获取当前用户信息
           await store.dispatch('user/getInfo')
@@ -38,7 +38,7 @@ router.beforeEach(async(to, from, next) => {
           await store.dispatch('permission/generateRoutes')
           router.addRoutes(store.getters.addUserRoutes) // 2.动态添加路由
           // next()
-          console.log(fromPath.length)
+          // console.log(fromPath.length)
           // if (fromPath.length > 0) {
           //   next({ path: fromPath })
           // } else {
@@ -73,23 +73,23 @@ router.afterEach(() => {
   NProgress.done()
 })
 
-function getpermssionRouter(needAddRouters) {
-  console.log(needAddRouters)
-  const AddRouters = []
-  needAddRouters.forEach(route => {
-    const tmp = { ...route }
-    const meta = {
-      icon: tmp.MenuIcon,
-      title: tmp.MenuName
-    }
-    const item = {
-      name: tmp.MenuNo.tolower(),
-      path: tmp.MenuRouter,
-      redirect: tmp.MenuRouter,
-      meta: meta
-    }
-    AddRouters.push(item)
-  })
-  console.log(AddRouters)
-  return AddRouters
-}
+// function getpermssionRouter(needAddRouters) {
+//   console.log(needAddRouters)
+//   const AddRouters = []
+//   needAddRouters.forEach(route => {
+//     const tmp = { ...route }
+//     const meta = {
+//       icon: tmp.MenuIcon,
+//       title: tmp.MenuName
+//     }
+//     const item = {
+//       name: tmp.MenuNo.tolower(),
+//       path: tmp.MenuRouter,
+//       redirect: tmp.MenuRouter,
+//       meta: meta
+//     }
+//     AddRouters.push(item)
+//   })
+//   console.log(AddRouters)
+//   return AddRouters
+// }

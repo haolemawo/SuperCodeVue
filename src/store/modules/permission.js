@@ -1,6 +1,6 @@
 import { asyncRoutes, constantRoutes } from '@/router'
 import user from '@/api/user'
-
+import Layout from '@/layout'
 /**
  * Use meta.role to determine if the current user has permission
  * @param roles
@@ -36,8 +36,8 @@ export function filterAsyncRoutes(routes, roles) {
 }
 
 const state = {
-  routes: [],
-  addUserRoutes: []
+  routes: null,
+  addUserRoutes: null
 }
 
 const mutations = {
@@ -56,10 +56,12 @@ const actions = {
         if (!response.Issuccess) {
           reject('认证失败，请重新登陆！')
         }
+        console.log(asyncRoutes)
         const dynamicRouter = filterAsyncRouter(response.Data)
         // console.log(response.Data)
-        console.log(asyncRoutes)
+        console.log(dynamicRouter)
         commit('SET_ROUTES', dynamicRouter)
+        // commit('SET_ROUTES', asyncRoutes)
         resolve(response)
       }).catch(error => {
         reject(error)
@@ -71,37 +73,57 @@ const actions = {
 function filterAsyncRouter(routers) {
   GetasyncRouteList()
   var accessedRouters = []
+  // console.log('123')
+  // console.log(asyncRouteList)
   routers.forEach(item => {
-    var needAddRouter = null
-    asyncRouteList.forEach(asyncItem => {
-      if (asyncItem.meta) {
-        if (item.MenuNo === asyncItem.meta.menuno) {
-          needAddRouter = asyncItem
-        }
-      }
-    })
-    if (item.MenuChild.length > 0) {
+    var needAddRouter = {}
+    // asyncRouteList.forEach(asyncItem => {
+    //   if (asyncItem.meta) {
+    //     if (item.MenuNo === asyncItem.meta.menuno) {
+    //       needAddRouter = asyncItem
+    //     }
+    //   }
+    // })
+    needAddRouter.path = item.MenuRouter || item.MenuChild[0].MenuRouter
+    needAddRouter.name = item.MenuName
+    needAddRouter.component = Layout
+    needAddRouter.affix = false
+    needAddRouter.meta = {
+      title: item.MenuName,
+      icon: item.MenuIcon,
+      menuno: item.MenuNo
+    }
+    if (item.MenuChild.length > 0 && item.IsHavaChild) {
+      needAddRouter.redirect = item.MenuChild[0].MenuRouter
       needAddRouter.children = getfilterAsyncRouterChild(item.MenuChild)
     }
     if (needAddRouter != null) {
       accessedRouters.push(needAddRouter)
     }
   })
+  console.log(accessedRouters)
   return accessedRouters
 }
 function getfilterAsyncRouterChild(routers) {
   var accessedRouters = []
   routers.forEach(item => {
-    var needAddRouter = null
-    asyncRouteList.forEach(asyncItem => {
-      if (asyncItem.meta) {
-        if (item.MenuNo === asyncItem.meta.menuno) {
-          needAddRouter = asyncItem
-          needAddRouter.children = []
-        }
-      }
-    })
-
+    var needAddRouter = {}
+    // asyncRouteList.forEach(asyncItem => {
+    //   if (asyncItem.meta) {
+    //     if (item.MenuNo === asyncItem.meta.menuno) {
+    //       needAddRouter = asyncItem
+    //       needAddRouter.children = []
+    //     }
+    //   }
+    // })
+    needAddRouter.path = item.MenuRouter
+    needAddRouter.name = item.MenuName
+    needAddRouter.component = loadView(item.MenuRouter)
+    needAddRouter.meta = {
+      title: item.MenuName,
+      icon: item.MenuIcon,
+      menuno: item.MenuNo
+    }
     if (item.MenuChild) {
       if (item.MenuChild.length > 0) {
         needAddRouter.children = getfilterAsyncRouterChild(item.MenuChild)
@@ -143,7 +165,14 @@ function GetAsyncRouteChild(routeList) {
     }
   })
 }
-
+// 路由懒加载
+function loadView(view) {
+  try {
+    return require('@/views' + view).default
+  } catch (e) {
+    return require('@/views/404.vue').default
+  }
+}
 export default {
   namespaced: true,
   state,

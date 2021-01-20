@@ -106,20 +106,21 @@ export default {
       })
     },
     handleLogin() {
+      const that = this
       // 登陆
-      this.$refs.loginForm.validate(valid => {
+      that.$refs.loginForm.validate(valid => {
         if (valid) {
           const params = {
-            loginname: this.loginForm.username,
-            pass: this.loginForm.password
+            loginname: that.loginForm.username,
+            pass: that.loginForm.password
           }
 
-          this.loading = true
-          this.$store.dispatch('user/login', params).then(() => {
-            this.$router.push({ path: this.redirect || '/' })
-            this.loading = false
+          that.loading = true
+          that.$store.dispatch('user/login', params).then(() => {
+            that.$router.push({ path: that.redirect || '/' })
+            that.loading = false
           }).catch(err => {
-            this.loading = false
+            that.loading = false
             console.log(err)
           })
         } else {

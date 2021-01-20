@@ -12,12 +12,17 @@ export default {
       default: ''
     }
   },
-  render(h, context) {
+  render(createElement, context) {
     const { icon, title } = context.props
     const vnodes = []
 
     if (icon) {
-      vnodes.push(<svg-icon icon-class={icon}/>)
+      const elHtml = createElement('i', {
+        attrs: {
+          'class': 'menu-item-icon iconfont ' + icon
+        }
+      })
+      vnodes.push(elHtml)
     }
 
     if (title) {
@@ -27,3 +32,8 @@ export default {
   }
 }
 </script>
+<style scoped>
+.menu-item-icon {
+  margin-right: 10px;
+}
+</style>
