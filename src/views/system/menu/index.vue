@@ -20,10 +20,12 @@
       >
         <template slot-scope="scope">
           <el-image
-            v-if="scope.row.MenuIcon"
+           class="MenuIcon"
+            v-if="scope.row.MenuIcon && isIcon(scope.row.MenuIcon)"
             style="width: 25px; height: 25px"
             :src="scope.row.MenuIcon"
           />
+          <i v-else :class="`MenuIcon iconfont ${scope.row.MenuIcon}`" />
           {{ scope.row.MenuName }}
         </template>
       </el-table-column>
@@ -70,6 +72,7 @@ export default {
   components: { MenuBottomToolbar, 'Edit-Form': editForm },
   data() {
     return {
+      searchSetting: [],
       TreeTableDataLoading: false,
       TreeTableData: [],
       // 当前选择行
@@ -89,6 +92,10 @@ export default {
   methods: {
     cllFun(methodName) {
       this[methodName].apply(this)
+    },
+    // 判断当前是否为iconfont图标
+    isIcon(path) {
+      return /^(https?:|mailto:|tel:|.png)/.test(path)
     },
     InitData() {
       this.TreeTableDataLoading = true
@@ -212,5 +219,8 @@ export default {
 }
 .el-pagination{
   padding: 5px;
+}
+.MenuIcon{
+  margin-right: 5px;
 }
 </style>

@@ -57,6 +57,12 @@
         </el-row>
         <el-row>
           <el-col :span="12">
+            <el-form-item label="菜单图标" class="upload-mallicon-form" prop="MENUPIC">
+              <i v-if="entity.MENUPIC" :class="`upload-mallicon iconfont ${entity.MENUPIC}`" @click="ChociceIcon" />
+              <i v-else class="upload-mallicon el-icon-upload" @click="ChociceIcon" />
+            </el-form-item>
+          </el-col>
+          <el-col :span="12">
             <el-form-item label="排序">
               <el-input-number v-model="entity.MENUORDER" :min="1" label="排序" />
             </el-form-item>
@@ -68,13 +74,16 @@
         <el-button @click="editparams.isvisible = false">取消</el-button>
       </div>
     </el-dialog>
+    <ChoiceMenu-Icon v-if="iconparams.isvisible" ref="mallTypeIcon" :params="iconparams" @AcceptChociceIcon="AcceptChociceIcon" />
   </div>
 </template>
 <script>
 
 import service from '@/api/system/menu'
+import ChoiceMenuIcon from '@/layout/components/Common/ChoiceMenuIcon'
 export default {
   name: 'MenueditForm',
+  components: { 'ChoiceMenu-Icon': ChoiceMenuIcon },
   props: {
     editparams: { // 这个就是父组件中子标签自定义名字
       type: Object,
@@ -85,7 +94,10 @@ export default {
     return {
       RoleLevelOptions: [],
       menuOptions: [],
-      entity: { }
+      entity: { },
+      iconparams: { // 选择图标参数
+        isvisible: false
+      }
     }
   },
   created() {
@@ -114,6 +126,21 @@ export default {
         }
       })
     },
+    // 选择分类图标
+    ChociceIcon() {
+      this.iconparams.isvisible = false
+      this.$nextTick(() => {
+        this.iconparams = {
+          isvisible: true,
+          AcceptMethod: 'AcceptChociceIcon',
+          ChoiceType: 'Radio', // 单选
+          type: 'Choice'
+        }
+      })
+    },
+    AcceptChociceIcon(icon) {
+      this.entity.MENUPIC = icon.val
+    },
     save() {
       // 保存
       service.SaveMenuData({ MenuData: this.entity }).then(res => {
@@ -136,3 +163,11 @@ export default {
   }
 }
 </script>
+<style lang="scss" scoped>
+.upload-mallicon{
+  padding: 10px;
+  border: 1px dashed #d9d9d9;
+  border-radius: 6px;
+  cursor: pointer;
+}
+</style>
