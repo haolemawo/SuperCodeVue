@@ -139,8 +139,8 @@ import role from '@/api/system/role'
 import MenuBottomToolbar from '@/layout/components/Controls/MenuBottomToolbar'
 import SearchConditionToolbar from '@/layout/components/Controls/SearchConditionToolbar'
 import splitPane from 'vue-splitpane'
-import RoleAuthorizeForm from './RoleAuthorizeForm'
-import RoleAuthorizeUserForm from './RoleAuthorizeUserForm'
+import RoleAuthorizeForm from './module/RoleAuthorizeForm'
+import RoleAuthorizeUserForm from './module/RoleAuthorizeUserForm'
 
 export default {
   components: { MenuBottomToolbar, SearchConditionToolbar, 'split-pane': splitPane,

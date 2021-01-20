@@ -167,7 +167,7 @@ export const constantRoutes = [
 ]
 // 异步菜单，会进行后端菜单校验之后，将符合条件的绑定到界面菜单上
 export const asyncRoutes = [
-  UserManager, 
+  UserManager,
   Organization,
   systemmanagers,
   systemmonitoring,

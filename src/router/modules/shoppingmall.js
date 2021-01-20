@@ -11,13 +11,13 @@ export const shoppingmall = {
     {
       path: 'malllist',
       name: '商品列表',
-      component: () => import('@/views/shopping/malllist'),
+      component: () => import('@/views/shopping/malllist/index'),
       meta: { title: '商品列表', icon: 'table', menuno: 'SM_SHOPPINGPRODUCTLIST' }
     },
     {
       path: 'malltype',
       name: '商品分类',
-      component: () => import('@/views/shopping/malltype'),
+      component: () => import('@/views/shopping/malltype/index'),
       meta: { title: '商品分类', icon: 'table', menuno: 'SM_SHOPPINGPRODUCTTYPE' }
     }
   ]

@@ -102,7 +102,7 @@
 import Service from '@/api/WebSite/RotatioinSet'
 import MenuBottomToolbar from '@/layout/components/Controls/MenuBottomToolbar'
 import SearchConditionToolbar from '@/layout/components/Controls/SearchConditionToolbar'
-import RotationSetForm from './RotationSetForm'
+import RotationSetForm from './module/RotationSetForm'
 import commonService from '@/api/common/common'
 
 export default {

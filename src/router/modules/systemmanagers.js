@@ -10,7 +10,7 @@ export const systemmanagers = {
     {
       path: 'DictionaryList',
       name: '数据字典',
-      component: () => import('@/views/system/DictionaryList'),
+      component: () => import('@/views/system/dictionary/index'),
       meta: { title: '数据字典', icon: 'table', menuno: 'SYS_DATADICTIONARY' }
     },
     {
@@ -22,19 +22,19 @@ export const systemmanagers = {
     {
       path: 'SystemConfig',
       name: '系统配置',
-      component: () => import('@/views/system/SystemConfig'),
+      component: () => import('@/views/system/config/index'),
       meta: { title: '系统配置', icon: 'table', menuno: 'BASE_SYSTEMCONFIG' }
     },
     {
       path: 'Rolelist',
       name: '角色管理',
-      component: () => import('@/views/system/Rolelist'),
+      component: () => import('@/views/system/role/index'),
       meta: { title: '角色管理', icon: 'table', menuno: 'BASE_ROLEMANAGER' }
     },
     {
       path: 'RoleAuthorize',
       name: '角色授权',
-      component: () => import('@/views/system/RoleAuthorize'),
+      component: () => import('@/views/system/roleauth/index'),
       meta: { title: '角色授权', icon: 'table', menuno: 'BASE_ROLEAUTHORIZE' }
     },
     {

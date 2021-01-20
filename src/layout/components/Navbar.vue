@@ -54,7 +54,7 @@ import Breadcrumb from '@/components/Breadcrumb'
 import SizeSelect from '@/components/SizeSelect'
 import Hamburger from '@/components/Hamburger'
 import LockScreen from '@/components/LockScreen'
-import ModifyUserPwdForm from '@/views/baseinfo/ModifyUserPwdForm'
+import ModifyUserPwdForm from '@/views/baseinfo/userlist/module/ModifyUserPwdForm'
 
 export default {
   components: {

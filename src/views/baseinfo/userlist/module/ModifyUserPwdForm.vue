@@ -34,7 +34,6 @@
 </template>
 <script>
 import UserService from '@/api/baseinfo/userinfo'
-import service from '@/utils/request'
 export default {
   name: 'ModifyUserPwdForm',
   props: {

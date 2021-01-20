@@ -12,7 +12,7 @@ export const UserManager =
     {
       path: 'userlist',
       name: '用户管理',
-      component: () => import('@/views/baseinfo/userlist'),
+      component: () => import('@/views/baseinfo/userlist/index'),
       meta: { title: '用户管理', icon: 'table', menuno: 'BASE_USERINFO' }
     }
   ]

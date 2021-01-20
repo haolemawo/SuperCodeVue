@@ -63,7 +63,7 @@
 import role from '@/api/system/role'
 import MenuBottomToolbar from '@/layout/components/Controls/MenuBottomToolbar'
 import SearchConditionToolbar from '@/layout/components/Controls/SearchConditionToolbar'
-import roleeditForm from './roleform'
+import roleeditForm from './module/roleform'
 
 export default {
   components: { MenuBottomToolbar, SearchConditionToolbar, 'roleedit-form': roleeditForm },

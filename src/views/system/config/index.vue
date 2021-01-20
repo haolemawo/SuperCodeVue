@@ -54,9 +54,7 @@
         :hide-on-single-page="false"
       />
     </div>
-    <!-- 角色添加、编辑框 Start -->
-    <roleedit-form v-if="formparams.isvisible" ref="roleEdit" :formparams="formparams" />
-    <!-- 角色添加、编辑框 END -->
+
   </div>
 </template>
 
@@ -64,10 +62,9 @@
 import role from '@/api/system/role'
 import MenuBottomToolbar from '@/layout/components/Controls/MenuBottomToolbar'
 import SearchConditionToolbar from '@/layout/components/Controls/SearchConditionToolbar'
-import roleeditForm from './roleform'
 
 export default {
-  components: { MenuBottomToolbar, SearchConditionToolbar, 'roleedit-form': roleeditForm },
+  components: { MenuBottomToolbar, SearchConditionToolbar },
   data() {
     return {
       dataCount: 10, // 总条数

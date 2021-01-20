@@ -88,15 +88,15 @@
     <!-- 导入用户表单 -->
     <UserImport-Form v-if="importformParams.isvisible" ref="roleEdit" :formparams="importformParams" />
     <!-- 新增、编辑表单 -->
-    <Userinfo-Form v-if="formparams.isvisible" ref="UserinfoForm" @RefreshList="RefreshList" :formparams="formparams" />
+    <Userinfo-Form v-if="formparams.isvisible" ref="UserinfoForm" :formparams="formparams" @RefreshList="RefreshList" />
   </div>
 </template>
 
 <script>
 import MenuBottomToolbar from '@/layout/components/Controls/MenuBottomToolbar'
 import SearchConditionToolbar from '@/layout/components/Controls/SearchConditionToolbar'
-import UserImportForm from './userimportform'
-import UserinfoForm from './UserinfoForm'
+import UserImportForm from './module/userimportform'
+import UserinfoForm from './module/UserinfoForm'
 import userinfoService from '@/api/baseinfo/userinfo'
 
 export default {

@@ -78,8 +78,8 @@
 
 <script>
 import dictionary from '@/api/system/dictionary'
-import DictionaryTypeForm from './DictionaryTypeForm'
-import DictionaryDetailForm from './DictionaryDetailForm'
+import DictionaryTypeForm from './module/DictionaryTypeForm'
+import DictionaryDetailForm from './module/DictionaryDetailForm'
 import { getCookiesUserInfo } from '@/utils/auth'
 
 export default {

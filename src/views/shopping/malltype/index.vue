@@ -83,7 +83,7 @@
 import service from '@/api/shopping/shoppingmall'
 import MenuBottomToolbar from '@/layout/components/Controls/MenuBottomToolbar'
 // import SearchConditionToolbar from '@/layout/components/Controls/SearchConditionToolbar'
-import MallTypeForm from './MallTypeForm'
+import MallTypeForm from './module/MallTypeForm'
 
 export default {
   components: { MenuBottomToolbar, 'MallType-Form': MallTypeForm },

@@ -20,8 +20,8 @@
       >
         <template slot-scope="scope">
           <el-image
-           class="MenuIcon"
             v-if="scope.row.MenuIcon && isIcon(scope.row.MenuIcon)"
+            class="MenuIcon"
             style="width: 25px; height: 25px"
             :src="scope.row.MenuIcon"
           />

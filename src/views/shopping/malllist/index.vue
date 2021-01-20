@@ -128,7 +128,7 @@ import commonService from '@/api/common/common'
 import splitPane from 'vue-splitpane'
 import MenuBottomToolbar from '@/layout/components/Controls/MenuBottomToolbar'
 import SearchConditionToolbar from '@/layout/components/Controls/SearchConditionToolbar'
-import MallForm from './MallForm'
+import MallForm from './module/MallForm'
 
 export default {
   components: { MenuBottomToolbar, SearchConditionToolbar, 'split-pane': splitPane, 'Mall-Form': MallForm },
