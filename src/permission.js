@@ -32,10 +32,10 @@ router.beforeEach(async(to, from, next) => {
       } else {
         // const fromPath = GetUrlRelativePath(window.location.href)
         try {
-          // 获取当前用户信息
-          await store.dispatch('user/getInfo')
           // 获取当前用户菜单列表
           await store.dispatch('permission/generateRoutes')
+          // 获取当前用户信息
+          await store.dispatch('user/getInfo')
           router.addRoutes(store.getters.addUserRoutes) // 2.动态添加路由
           // next()
           // console.log(fromPath.length)
