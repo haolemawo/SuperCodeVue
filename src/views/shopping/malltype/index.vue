@@ -6,6 +6,7 @@
     </div>
     <el-table
       v-loading="TreeTableDataLoading"
+      :height="$store.state.app.ScreenSize.tableHeight+20"
       :data="TreeTableData"
       stripe
       highlight-current-row

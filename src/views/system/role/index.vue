@@ -6,6 +6,7 @@
     </div>
     <el-table
       :data="tableData"
+      :height="$store.state.app.ScreenSize.tableHeight"
       stripe
       highlight-current-row
       border

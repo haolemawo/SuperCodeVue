@@ -7,6 +7,7 @@
     <el-table
       v-loading="UserTableDataLoading"
       :data="UserTableData.data"
+      :height="$store.state.app.ScreenSize.tableHeight"
       stripe
       highlight-current-row
       border

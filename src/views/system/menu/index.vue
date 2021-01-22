@@ -1,11 +1,12 @@
 <template>
-  <div>
+  <div class="Container-Right">
     <div class="Search-menubtn-toolbar">
       <SearchConditionToolbar ref="searchCondition" :searchsetting="searchSetting" />
       <MenuBottomToolbar menuclass="BASE_SYSTEMMENU" />
     </div>
     <el-table
       v-loading="TreeTableDataLoading"
+      :height="$store.state.app.ScreenSize.tableHeight"
       :data="TreeTableData"
       stripe
       highlight-current-row
