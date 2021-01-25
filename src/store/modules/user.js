@@ -7,6 +7,8 @@ import { resetRouter } from '@/router'
 const getDefaultState = () => {
   return {
     token: getToken(),
+    tokenexpires: 0,
+    uuid: '',
     userCookes: getCookiesUserInfo(),
     name: '',
     avatar: '',
@@ -22,6 +24,9 @@ const mutations = {
   },
   SET_TOKEN: (state, token) => {
     state.token = token
+  },
+  SET_TOKENEXPIRES: (state, expires) => {
+    state.tokenexpires = expires
   },
   SET_UUID: (state, uuid) => {
     state.uuid = uuid
@@ -49,8 +54,10 @@ const actions = {
           if (res.Issuccess) {
             const token = res.Data.token.token
             const uuid = res.Data.UUID
+            console.log(res.Data.token.expires_in)
             commit('SET_TOKEN', token)
             commit('SET_UUID', uuid)
+            commit('SET_TOKENEXPIRES', res.Data.token.expires_in)
             setToken(token, uuid)
             Message({
               showClose: true,
@@ -128,13 +135,35 @@ const actions = {
       })
     })
   },
-
   // remove token
   resetToken({ commit }) {
     return new Promise(resolve => {
       removeToken() // must remove  token  first
       commit('RESET_STATE')
       resolve()
+    })
+  },
+  // 刷新token
+  refreshToken({ commit }, param) {
+    return new Promise((resolve, reject) => {
+      user.RefreshToken(param).then(res => {
+        if (res) {
+          if (res.Issuccess) {
+            const token = res.Data.token.token
+            const uuid = res.Data.UUID
+            console.log(res.Data.token.expires_in)
+            commit('SET_TOKEN', token)
+            commit('SET_UUID', uuid)
+            commit('SET_TOKENEXPIRES', res.Data.token.expires_in)
+            setToken(token, uuid)
+            resolve({ Issuccess: true, token: token })
+          } else {
+            resolve({ Issuccess: false })
+          }
+        }
+      }).catch(err => {
+        reject(err)
+      })
     })
   }
 }

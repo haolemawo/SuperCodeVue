@@ -36,8 +36,16 @@ const user = {
       url: $base.web + '/PageMenu/GetUserMenuList',
       method: 'post'
     })
+  },
+  // 刷新Token，保持前端用户token状态
+  RefreshToken(params) {
+    const postData = qs.stringify(params)
+    return request({
+      url: $base.web + '/Auth/RefreshToken',
+      method: 'post',
+      data: postData
+    })
   }
-  
 }
 
 export default user
